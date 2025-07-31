@@ -16,22 +16,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let scene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: scene)
         
+        window = UIWindow(windowScene: scene)
         window?.tintColor = .Green
         
-        setSplashScreen()
+        showSplashView()
     }
     
-    func setSplashScreen() {
+    private func showSplashView() {
         window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let navigationController =  UINavigationController(rootViewController: self.isLoggedIn ? MainViewController() : OnboardingViewController())
-            
-            navigationController.configureBackButton()
-            self.window?.rootViewController = navigationController
+            self.routeToInitialView()
         }
+    }
+    
+    private func routeToInitialView() {
+        let navigationController =  UINavigationController(rootViewController: self.isLoggedIn ? MainViewController() : OnboardingViewController())
+        
+        navigationController.configureBackButton()
+        self.window?.rootViewController = navigationController
     }
 }
