@@ -10,7 +10,7 @@ import UIKit
 class SplashViewController: UIViewController {
     
     override func loadView() {
-        self.view = SplashView()
+        view = SplashView()
     }
     
     override func viewDidLoad() {
