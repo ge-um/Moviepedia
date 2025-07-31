@@ -9,7 +9,7 @@ import UIKit
 
 final class OnboardingView: BaseView {
     
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "splash")
         imageView.contentMode = .top
@@ -17,7 +17,7 @@ final class OnboardingView: BaseView {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Onboarding"
         label.font = .init(name: "HelveticaNeue-BoldItalic", size: 36)
@@ -26,7 +26,7 @@ final class OnboardingView: BaseView {
         return label
     }()
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "당신만의 영화 세상, Moviepedia를 시작해보세요."
         label.textColor = .W
@@ -36,7 +36,7 @@ final class OnboardingView: BaseView {
         return label
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center

@@ -20,7 +20,7 @@ class OnboardingViewController: UIViewController {
         bindAction()
     }
     
-    func bindAction() {
+    private func bindAction() {
         onboardingView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     

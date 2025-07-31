@@ -10,7 +10,7 @@ import UIKit
 
 final class SplashView: BaseView {
     
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "splash")
         imageView.contentMode = .top
@@ -18,7 +18,7 @@ final class SplashView: BaseView {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Moviepedia"
         label.font = .init(name: "HelveticaNeue-BoldItalic", size: 36)
@@ -27,7 +27,7 @@ final class SplashView: BaseView {
         return label
     }()
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "금가경"
         label.textColor = .W
@@ -35,7 +35,7 @@ final class SplashView: BaseView {
         return label
     }()
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center

@@ -9,7 +9,7 @@ import UIKit
 
 class SettingNicknameViewController: UIViewController {
     
-    let settingNicknameView = SettingNicknameView()
+    private let settingNicknameView = SettingNicknameView()
     
     override func loadView() {
         view = settingNicknameView
