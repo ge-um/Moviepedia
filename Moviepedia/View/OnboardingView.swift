@@ -35,17 +35,7 @@ final class OnboardingView: BaseView {
         
         return label
     }()
-    
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.spacing = 20
-        
-        return stackView
-    }()
-    
+
     let startButton: UIButton = {
         let button = UIButton()
         
@@ -72,24 +62,32 @@ final class OnboardingView: BaseView {
 extension OnboardingView: ViewProtocol {
     
     func configureSubview() {
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(nameLabel)
-        
-        addSubview(stackView)
+        addSubview(imageView)
+        addSubview(titleLabel)
+        addSubview(nameLabel)
         addSubview(startButton)
     }
     
     func configureConstraint() {
-        imageView.snp.contentHuggingVerticalPriority = 249
+        imageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(228)
+            make.centerX.equalTo(safeAreaLayoutGuide)
+        }
         
-        stackView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(safeAreaLayoutGuide).inset(172)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(88)
+        titleLabel.snp.makeConstraints { make in
+            make.top.greaterThanOrEqualTo(imageView.snp.bottom).offset(96)
+            make.centerX.equalTo(safeAreaLayoutGuide)
+
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(safeAreaLayoutGuide)
+            make.width.equalTo(200)
         }
         
         startButton.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(32)
+            make.top.equalTo(nameLabel.snp.bottom).offset(44)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(8)
             make.height.equalTo(40)
         }

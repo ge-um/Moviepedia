@@ -35,7 +35,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func routeToInitialView() {
         let navigationController =  UINavigationController(rootViewController: self.isLoggedIn ? MainViewController() : OnboardingViewController())
         
-        navigationController.configureBackButton()
+//        let vc = OnboardingViewController()
+//        navigationController.configureBackButton()
         self.window?.rootViewController = navigationController
+//        self.window?.rootViewController = vc
     }
 }

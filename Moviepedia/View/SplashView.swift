@@ -31,18 +31,9 @@ final class SplashView: BaseView {
         let label = UILabel()
         label.text = "금가경"
         label.textColor = .W
+        label.textAlignment = .center
         
         return label
-    }()
-    
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.spacing = 20
-        
-        return stackView
     }()
     
     override init(frame: CGRect) {
@@ -55,19 +46,27 @@ final class SplashView: BaseView {
 extension SplashView: ViewProtocol {
     
     func configureSubview() {
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(nameLabel)
-        
-        addSubview(stackView)
+        addSubview(imageView)
+        addSubview(titleLabel)
+        addSubview(nameLabel)
     }
     
     func configureConstraint() {
-        imageView.snp.contentHuggingVerticalPriority = 249
-        
-        stackView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(safeAreaLayoutGuide).inset(172)
+        imageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(228)
             make.centerX.equalTo(safeAreaLayoutGuide)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.greaterThanOrEqualTo(imageView.snp.bottom).offset(96)
+            make.centerX.equalTo(safeAreaLayoutGuide)
+
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(safeAreaLayoutGuide)
+            make.width.equalTo(200)
         }
     }
 }

@@ -11,6 +11,7 @@ extension UINavigationController {
     
     func configureBackButton() {
         let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithTransparentBackground()
         
         let backButtonAppearance = UIBarButtonItemAppearance()
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
@@ -18,6 +19,6 @@ extension UINavigationController {
         
         let navigationBar = UINavigationBar.appearance()
         navigationBar.standardAppearance = navigationBarAppearance
-        navigationBar.scrollEdgeAppearance = navigationBarAppearance
+//        navigationBar.scrollEdgeAppearance = navigationBarAppearance
     }
 }
