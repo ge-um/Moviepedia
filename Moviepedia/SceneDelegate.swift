@@ -20,6 +20,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.tintColor = .Green
         
+        setSplashScreen()
+    }
+    
+    func setSplashScreen() {
         window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()
         

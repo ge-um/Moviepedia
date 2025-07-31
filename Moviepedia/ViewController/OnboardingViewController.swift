@@ -8,6 +8,7 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
+    
     private let onboardingView = OnboardingView()
     
     override func loadView() {

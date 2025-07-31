@@ -8,6 +8,7 @@
 import UIKit
 
 class SettingNicknameViewController: UIViewController {
+    
     let settingNicknameView = SettingNicknameView()
     
     override func loadView() {
@@ -16,6 +17,5 @@ class SettingNicknameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 }

@@ -14,6 +14,7 @@ final class SplashView: BaseView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "splash")
         imageView.contentMode = .top
+        
         return imageView
     }()
     
@@ -22,6 +23,7 @@ final class SplashView: BaseView {
         label.text = "Moviepedia"
         label.font = .init(name: "HelveticaNeue-BoldItalic", size: 36)
         label.textColor = .W
+        
         return label
     }()
     
@@ -29,12 +31,12 @@ final class SplashView: BaseView {
         let label = UILabel()
         label.text = "금가경"
         label.textColor = .W
+        
         return label
     }()
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
