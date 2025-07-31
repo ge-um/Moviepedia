@@ -18,14 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        window?.backgroundColor = .B
         window?.tintColor = .Green
         
         window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.window?.rootViewController = self.isLoggedIn ? MainViewController() : OnboardingViewController()
+            let navigationController =  UINavigationController(rootViewController: self.isLoggedIn ? MainViewController() : OnboardingViewController())
+            
+            self.window?.rootViewController = navigationController
         }
     }
 }

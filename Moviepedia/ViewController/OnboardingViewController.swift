@@ -8,12 +8,24 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
+    private let onboardingView = OnboardingView()
     
     override func loadView() {
-        self.view = OnboardingView()
+        view = onboardingView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindAction()
+    }
+    
+    func bindAction() {
+        onboardingView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func startButtonTapped() {
+        print(#function)
+        let vc = SettingNicknameViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

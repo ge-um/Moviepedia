@@ -13,6 +13,7 @@ final class OnboardingView: BaseView {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "splash")
         imageView.contentMode = .top
+        
         return imageView
     }()
     
@@ -21,6 +22,7 @@ final class OnboardingView: BaseView {
         label.text = "Onboarding"
         label.font = .init(name: "HelveticaNeue-BoldItalic", size: 36)
         label.textColor = .W
+        
         return label
     }()
     
@@ -30,12 +32,12 @@ final class OnboardingView: BaseView {
         label.textColor = .W
         label.numberOfLines = 0
         label.textAlignment = .center
+        
         return label
     }()
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
@@ -49,10 +51,12 @@ final class OnboardingView: BaseView {
         
         var config = UIButton.Configuration.plain()
         let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 15, weight: .bold)])
+        
         config.attributedTitle = AttributedString("시작하기", attributes: container)
         config.cornerStyle = .capsule
         config.background.strokeColor = .Green
         config.background.strokeWidth = 1
+        
         button.configuration = config
         
         return button
