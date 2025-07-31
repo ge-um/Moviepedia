@@ -19,6 +19,5 @@ extension UINavigationController {
         
         let navigationBar = UINavigationBar.appearance()
         navigationBar.standardAppearance = navigationBarAppearance
-//        navigationBar.scrollEdgeAppearance = navigationBarAppearance
     }
 }
