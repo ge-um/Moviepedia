@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.backgroundColor = .B
         window?.tintColor = .Green
         
-        window?.rootViewController = ViewController()
+        window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()
     }
 

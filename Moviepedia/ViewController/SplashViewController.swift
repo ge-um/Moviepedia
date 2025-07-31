@@ -7,8 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class SplashViewController: UIViewController {
+    override func loadView() {
+        self.view = SplashView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
