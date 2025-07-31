@@ -8,6 +8,7 @@
 import Foundation
 
 @objc protocol ViewProtocol {
+    
     func configureSubview()
     
     func configureConstraint()

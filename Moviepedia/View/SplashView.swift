@@ -9,6 +9,7 @@ import SnapKit
 import UIKit
 
 final class SplashView: BaseView {
+    
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "splash")
@@ -50,6 +51,7 @@ final class SplashView: BaseView {
 }
 
 extension SplashView: ViewProtocol {
+    
     func configureSubview() {
         stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(titleLabel)

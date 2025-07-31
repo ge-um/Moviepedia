@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIColor {
+    
     convenience init(hex: String, alpha: CGFloat = 1.0) {
         var hexFormatted: String = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
         
@@ -28,6 +29,7 @@ extension UIColor {
 }
 
 extension UIColor {
+    
     static let Green = UIColor(hex: "98FB98")
     static let Gray = UIColor(hex: "E1E1E1")
     static let Gray2 = UIColor(hex: "8E8E8E")
