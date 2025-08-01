@@ -8,9 +8,10 @@
 import UIKit
 
 class SplashViewController: UIViewController {
+    let splashView = SplashView()
     
     override func loadView() {
-        view = SplashView()
+        view = splashView
     }
     
     override func viewDidLoad() {
