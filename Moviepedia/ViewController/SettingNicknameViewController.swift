@@ -21,12 +21,14 @@ class SettingNicknameViewController: UIViewController {
         configureNavigation()
         bindAction()
     }
-    
-    private func configureNavigation() {
+}
+
+extension SettingNicknameViewController: ViewControllerProtocol {
+     func configureNavigation() {
         navigationItem.title = "닉네임 설정"
     }
     
-    private func bindAction() {
+    func bindAction() {
         settingNicknameView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         settingNicknameView.completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)

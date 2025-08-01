@@ -24,8 +24,10 @@ class OnboardingViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
     }
-    
-    private func bindAction() {
+}
+
+extension OnboardingViewController: ViewControllerProtocol {
+    func bindAction() {
         onboardingView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     
