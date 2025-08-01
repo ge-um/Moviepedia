@@ -66,7 +66,7 @@ extension DetailNicknameViewController: ViewControllerProtocol {
     func validateNickname() -> Result<Bool, ValidationError> {
         let nickname = detailNicknameView.nicknameTextField.text!
     
-        if nickname.isValidLength {
+        if !nickname.isValidLength {
             return .failure(.invalidLength)
         } else if nickname.hasSpecialCharacter {
             return .failure(.containsSpecialCharacter)
