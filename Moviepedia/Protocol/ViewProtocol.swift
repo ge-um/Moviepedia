@@ -7,15 +7,9 @@
 
 import Foundation
 
-@objc protocol ViewProtocol {
+protocol ViewProtocol {
     
     func configureSubview()
     
     func configureConstraint()
-    
-    @objc optional func configureStyle()
-    
-    @objc optional func bindAction()
-    
-    @objc optional func configureInitialData()
 }
