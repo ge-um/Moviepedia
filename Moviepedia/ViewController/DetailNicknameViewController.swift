@@ -63,6 +63,7 @@ extension DetailNicknameViewController: ViewControllerProtocol {
     
     // TODO: - 유효성 검사 방식 더 고민해보기
     // TODO: - viewController에 닉네임 검사 로직이 있는게 맞는가?
+    // TODO: - ResultType을 사용하는게 맞을까?
     func validateNickname() -> Result<Bool, ValidationError> {
         let nickname = detailNicknameView.nicknameTextField.text!
     
