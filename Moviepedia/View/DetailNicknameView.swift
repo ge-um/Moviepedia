@@ -24,9 +24,8 @@ class DetailNicknameView: BaseView {
         return view
     }()
     
-    private let errorLabel: UILabel = {
+    let errorLabel: UILabel = {
         let label = UILabel()
-        label.text = "닉네임에 숫자는 포함할 수 없어요"
         label.font = .systemFont(ofSize: 13)
         label.textColor = .Green
         
