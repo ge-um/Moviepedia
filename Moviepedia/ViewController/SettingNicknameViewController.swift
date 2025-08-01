@@ -17,5 +17,6 @@ class SettingNicknameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "닉네임 설정"
     }
 }

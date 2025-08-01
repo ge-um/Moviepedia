@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func routeToInitialView() {
         let navigationController =  UINavigationController(rootViewController: MainViewController())
-        navigationController.configureBackButton()
+        navigationController.configureNavigationBar()
 
         self.window?.rootViewController = navigationController
         
