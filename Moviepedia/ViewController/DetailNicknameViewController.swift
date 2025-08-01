@@ -11,7 +11,7 @@ class DetailNicknameViewController: UIViewController {
     private let detailNicknameView = DetailNicknameView()
     
     override func loadView() {
-        view = DetailNicknameView()
+        view = detailNicknameView
     }
     
     override func viewDidLoad() {
