@@ -38,16 +38,7 @@ final class OnboardingView: BaseView {
 
     let startButton: UIButton = {
         let button = UIButton()
-        
-        var config = UIButton.Configuration.plain()
-        let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 15, weight: .bold)])
-        
-        config.attributedTitle = AttributedString("시작하기", attributes: container)
-        config.cornerStyle = .capsule
-        config.background.strokeColor = .Green
-        config.background.strokeWidth = 1
-        
-        button.configuration = config
+        button.configuration = UIButton.Configuration.bordered(title: "시작하기")
         
         return button
     }()
