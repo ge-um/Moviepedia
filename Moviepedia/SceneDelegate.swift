@@ -33,9 +33,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func routeToInitialView() {
-        let navigationController =  UINavigationController(rootViewController: self.isLoggedIn ? MainViewController() : OnboardingViewController())
-        
+        let navigationController =  UINavigationController(rootViewController: MainViewController())
         navigationController.configureBackButton()
+
         self.window?.rootViewController = navigationController
+        
+        if !self.isLoggedIn {
+            navigationController.pushViewController(OnboardingViewController(), animated: false)
+        }
+
     }
 }
