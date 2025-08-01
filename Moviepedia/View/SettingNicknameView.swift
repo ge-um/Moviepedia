@@ -10,7 +10,7 @@ import UIKit
 
 final class SettingNicknameView: BaseView {
     
-    private let nicknameTextField: UITextField = {
+    let nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.textColor = .W
         textField.font = .systemFont(ofSize: 13)
@@ -19,7 +19,7 @@ final class SettingNicknameView: BaseView {
         return textField
     }()
     
-    private let editButton: UIButton = {
+    let editButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.plain()
         config.contentInsets = .init(top: 8, leading: 20, bottom: 8, trailing: 20)
@@ -52,7 +52,7 @@ final class SettingNicknameView: BaseView {
         return view
     }()
     
-    private let completeButton: UIButton = {
+    let completeButton: UIButton = {
         let button = UIButton()
         button.configuration = UIButton.Configuration.bordered(title: "완료")
 
