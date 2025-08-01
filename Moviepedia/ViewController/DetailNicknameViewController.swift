@@ -12,6 +12,8 @@ class DetailNicknameViewController: UIViewController {
     
     private let detailNicknameView = DetailNicknameView()
     
+    var nickname: ((String) -> Void)?
+        
     override func loadView() {
         view = detailNicknameView
     }
@@ -20,6 +22,10 @@ class DetailNicknameViewController: UIViewController {
         super.viewDidLoad()
         configureNavigation()
         bindAction()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        nickname?(detailNicknameView.nicknameTextField.text!)
     }
 }
 

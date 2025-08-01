@@ -11,7 +11,7 @@ import UIKit
 class SettingNicknameViewController: UIViewController {
     
     private let settingNicknameView = SettingNicknameView()
-    
+        
     override func loadView() {
         view = settingNicknameView
     }
@@ -27,7 +27,7 @@ extension SettingNicknameViewController: ViewControllerProtocol {
      func configureNavigation() {
         navigationItem.title = "닉네임 설정"
     }
-    
+
     func bindAction() {
         settingNicknameView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
@@ -37,6 +37,10 @@ extension SettingNicknameViewController: ViewControllerProtocol {
     @objc func editButtonTapped() {
         let vc = DetailNicknameViewController()
         navigationController?.pushViewController(vc, animated: true)
+        
+        vc.nickname = { name in
+            self.settingNicknameView.nicknameTextField.text = name
+        }
     }
     
     // TODO: - 닉네임 유효성에 따라 분기처리 필요
