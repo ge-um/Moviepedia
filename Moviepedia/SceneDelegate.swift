@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     // TODO: - UserDefaults에 사용자 로그인 여부 저장 후 UserDefaults로 변경
-    var isLoggedIn = false
+    var isLoggedIn = true
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -33,14 +33,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func routeToInitialView() {
-        let navigationController =  UINavigationController(rootViewController: MainViewController())
-        navigationController.configureNavigationBar()
-
-        self.window?.rootViewController = navigationController
+        let navigationController = UINavigationController (rootViewController: self.isLoggedIn ? MainTabBarController(): OnboardingViewController())
         
-        if !self.isLoggedIn {
-            navigationController.pushViewController(OnboardingViewController(), animated: false)
-        }
-
+        navigationController.configureNavigationBar()
+        self.window?.rootViewController = navigationController
     }
 }
