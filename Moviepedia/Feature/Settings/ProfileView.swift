@@ -14,6 +14,7 @@ class ProfileView: BaseView {
         label.text = "달콤한 기모청바지"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .W
+        
         return label
     }()
     
@@ -22,10 +23,13 @@ class ProfileView: BaseView {
         
         var config = UIButton.Configuration.plain()
         
-        let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 14)])
-        let attributedString = AttributedString("25.06.24 가입", attributes: container)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy.MM.dd"
+        let date = formatter.string(from: AppSetting.signUpDate) + " 가입"
         
-        config.attributedTitle = attributedString
+        let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 14)])
+        config.attributedTitle = AttributedString(date, attributes: container)
+        
         config.image = UIImage(systemName: "chevron.right")
         config.imagePlacement = .trailing
         config.imagePadding = 8
@@ -39,6 +43,7 @@ class ProfileView: BaseView {
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
+        
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
@@ -52,9 +57,7 @@ class ProfileView: BaseView {
         var config = UIButton.Configuration.filled()
         
         let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 16, weight: .bold)])
-        let attributedString = AttributedString("0개의 무비박스 보관중", attributes: container)
-        
-        config.attributedTitle = attributedString
+        config.attributedTitle = AttributedString("0개의 무비박스 보관중", attributes: container)
         
         config.baseBackgroundColor = .Green2
         config.baseForegroundColor = .W
@@ -70,7 +73,6 @@ class ProfileView: BaseView {
         configureSubview()
         configureConstraint()
         configureStyle()
-
     }
 }
 

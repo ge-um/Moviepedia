@@ -57,6 +57,7 @@ extension SettingNicknameViewController: ViewControllerProtocol {
         switch nickname.isValid {
         case .success:
             NotificationCenter.default.post(name: NSNotification.Name("LoginStatusChanged"), object: nil, userInfo: ["isLoggedIn" : true])
+            AppSetting.signUpDate = Date()
 
         case .failure(let error):
             view.makeToast(error.localizedDescription, position: .center)

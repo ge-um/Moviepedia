@@ -1,9 +1,11 @@
 //
-//  Nickname.swift
+//  User.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/2/25.
 //
+
+import Foundation
 
 struct User {
     let name: String
