@@ -9,7 +9,6 @@ import UIKit
 
 // TODO: - 클로저 구문 없애기
 class NicknameDetailViewController: UIViewController {
-    
     private let detailNicknameView = NicknameDetailView()
     
     var sendNickname: ((User) -> Void)?
@@ -31,9 +30,12 @@ class NicknameDetailViewController: UIViewController {
 }
 
 extension NicknameDetailViewController: ViewControllerProtocol {
-    
     func configureNavigation() {
-        navigationItem.title = "닉네임 설정"
+        if let _ = navigationController?.viewControllers.first as? EditNicknameViewController {
+            navigationItem.title = "닉네임 편집"
+        } else {
+            navigationItem.title = "닉네임 설정"
+        }
     }
     
     func bindAction() {

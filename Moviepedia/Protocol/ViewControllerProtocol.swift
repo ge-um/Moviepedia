@@ -9,10 +9,7 @@ import Foundation
 
 @objc protocol ViewControllerProtocol {
     @objc optional func configureNavigation()
-    
     @objc optional func configureTabBar()
-    
     @objc optional func configureTableView()
-    
     @objc optional func bindAction()
 }

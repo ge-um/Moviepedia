@@ -18,7 +18,7 @@ final class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         configureNavigation()
         configureTableView()
         bindAction()
@@ -41,7 +41,10 @@ extension SettingsViewController: ViewControllerProtocol {
     }
     
     @objc func editButtonTapped() {
-        present(SetNicknameViewController(), animated: true)
+        let modal = UINavigationController(rootViewController: EditNicknameViewController())
+        modal.modalPresentationStyle = .pageSheet
+        modal.sheetPresentationController?.prefersGrabberVisible = true
+        present(modal, animated: true)
     }
 }
 
