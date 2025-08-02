@@ -5,7 +5,6 @@
 //  Created by 금가경 on 8/2/25.
 //
 
-import SnapKit
 import UIKit
 
 class SettingsTableViewCell: BaseTableViewCell {
