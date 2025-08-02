@@ -10,8 +10,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    // TODO: - UserDefaults에 사용자 로그인 여부 저장 후 UserDefaults로 변경
-    var isLoggedIn = true
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -21,8 +19,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.tintColor = .Green
         
         showSplashView()
+        observeUserDefaults()
     }
     
+    private func observeUserDefaults() {
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLoginStatus), name: NSNotification.Name("LoginStatusChanged"), object: nil)
+    }
+    
+    @objc func changeLoginStatus(notification: NSNotification) {
+        guard let status = notification.userInfo?["isLoggedIn"] as? Bool else {
+            return
+        }
+        
+        AppSetting.isLoggedIn = status
+        routeToInitialView()
+    }
+
     private func showSplashView() {
         window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()
@@ -31,9 +43,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.routeToInitialView()
         }
     }
-    
+
     private func routeToInitialView() {
-        let rootViewController = self.isLoggedIn ? MainTabBarController(): OnboardingViewController()
+        let rootViewController: UIViewController
+                
+        switch AppSetting.isLoggedIn {
+            
+        case true:
+            rootViewController = MainTabBarController()
+        case false:
+            rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+        }
+
         self.window?.rootViewController = rootViewController
     }
 }
