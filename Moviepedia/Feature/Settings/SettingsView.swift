@@ -15,7 +15,8 @@ class SettingsView: BaseView {
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = UIColor.Gray2
         tableView.separatorInset = .init(top: 0, left: 12, bottom: 0, right: 12)
-
+        tableView.tableHeaderView = UIView()
+        
         return tableView
     }()
     
