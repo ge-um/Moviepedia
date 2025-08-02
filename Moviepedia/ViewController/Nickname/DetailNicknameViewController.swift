@@ -12,7 +12,7 @@ class DetailNicknameViewController: UIViewController {
     
     private let detailNicknameView = DetailNicknameView()
     
-    var nickname: ((String) -> Void)?
+    var sendNickname: ((Nickname) -> Void)?
         
     override func loadView() {
         view = detailNicknameView
@@ -25,7 +25,8 @@ class DetailNicknameViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        nickname?(detailNicknameView.nicknameTextField.text!)
+        let nickname = Nickname(name: detailNicknameView.nicknameTextField.text!)
+        sendNickname?(nickname)
     }
 }
 
@@ -43,38 +44,22 @@ extension DetailNicknameViewController: ViewControllerProtocol {
     
     // TODO: - 에러는 묶었는데 성공은 묶을 수 없을까?
     @objc func nicknameTextFieldEditingDidChange() {
-        guard !detailNicknameView.nicknameTextField.text!.isEmpty else {
+        let name = detailNicknameView.nicknameTextField.text!
+        guard !name.isEmpty else {
             detailNicknameView.errorLabel.text = ""
             return
         }
         
-        let result = validateNickname()
+        let nickname = Nickname(name: name)
         let message: String
         
-        switch result {
-        case .success(_):
+        switch nickname.isValid {
+        case .success:
             message = "사용할 수 있는 닉네임이에요."
         case .failure(let error):
             message = error.localizedDescription
         }
         
         detailNicknameView.errorLabel.text = message
-    }
-    
-    // TODO: - 유효성 검사 방식 더 고민해보기
-    // TODO: - viewController에 닉네임 검사 로직이 있는게 맞는가?
-    // TODO: - ResultType을 사용하는게 맞을까?
-    func validateNickname() -> Result<Bool, ValidationError> {
-        let nickname = detailNicknameView.nicknameTextField.text!
-    
-        if !nickname.isValidLength {
-            return .failure(.invalidLength)
-        } else if nickname.hasSpecialCharacter {
-            return .failure(.containsSpecialCharacter)
-        } else if nickname.hasNumber {
-            return .failure(.containsNumber)
-        }
-        
-        return .success(true)
     }
 }

@@ -5,6 +5,7 @@
 //  Created by 금가경 on 8/1/25.
 //
 
+// TODO: - 유효성 검사 방식 더 고민해보기
 // TODO: - 이러한 경우에 한 번만 계산하는가?
 // TODO: - String extension에 계산값을 넣어두는게 맞을까?
 extension String {
