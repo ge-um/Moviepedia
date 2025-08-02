@@ -7,14 +7,38 @@
 
 import UIKit
 
-class ProfileView: UIView {
+class ProfileView: BaseView {
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = UIColor.Gray2
+        tableView.separatorInset = .init(top: 0, left: 12, bottom: 0, right: 12)
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+        return tableView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        configureSubview()
+        configureConstraint()
+        
+        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
     }
-    */
+}
 
+extension ProfileView: ViewProtocol {
+    
+    func configureSubview() {
+        addSubview(tableView)
+    }
+    
+    func configureConstraint() {
+        tableView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.verticalEdges.equalTo(safeAreaLayoutGuide)
+        }
+    }
 }

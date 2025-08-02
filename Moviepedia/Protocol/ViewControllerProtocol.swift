@@ -12,5 +12,7 @@ import Foundation
     
     @objc optional func configureTabBar()
     
+    @objc optional func configureTableView()
+    
     @objc optional func bindAction()
 }

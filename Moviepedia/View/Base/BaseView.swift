@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: - ViewProtocol 필수 함수의 호출도 넣기
 class BaseView: UIView {
     
     override init(frame: CGRect) {
