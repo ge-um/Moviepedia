@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     private let settingsView = SettingsView()
     private let content = ["자주 묻는 질문", "1:1 문의", "알림 설정", "탈퇴하기"]
@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController {
         
         configureNavigation()
         configureTableView()
+        bindAction()
     }
 }
 
@@ -33,6 +34,14 @@ extension SettingsViewController: ViewControllerProtocol {
     func configureTableView() {
         settingsView.tableView.delegate = self
         settingsView.tableView.dataSource = self
+    }
+    
+    func bindAction() {
+        settingsView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func editButtonTapped() {
+        present(EditNicknameViewController(), animated: true)
     }
 }
 

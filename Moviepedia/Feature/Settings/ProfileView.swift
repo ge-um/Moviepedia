@@ -18,7 +18,7 @@ class ProfileView: BaseView {
         return label
     }()
     
-    let signUpDateButton: UIButton = {
+    let editButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
@@ -79,7 +79,7 @@ class ProfileView: BaseView {
 extension ProfileView: ViewProtocol {
     func configureSubview() {
         stackView.addArrangedSubview(nameLabel)
-        stackView.addArrangedSubview(signUpDateButton)
+        stackView.addArrangedSubview(editButton)
         
         addSubview(stackView)
         addSubview(movieBoxStatusButton)

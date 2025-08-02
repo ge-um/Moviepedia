@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsView: BaseView {
+final class SettingsView: BaseView {
     let profileView = ProfileView()
     
     let tableView: UITableView = {
@@ -32,7 +32,6 @@ class SettingsView: BaseView {
 }
 
 extension SettingsView: ViewProtocol {
-    
     func configureSubview() {
         addSubview(profileView)
         addSubview(tableView)
@@ -52,3 +51,4 @@ extension SettingsView: ViewProtocol {
         }
     }
 }
+
