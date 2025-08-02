@@ -27,6 +27,7 @@ class OnboardingViewController: UIViewController {
 }
 
 extension OnboardingViewController: ViewControllerProtocol {
+    
     func bindAction() {
         onboardingView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
