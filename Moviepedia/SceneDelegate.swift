@@ -33,9 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func routeToInitialView() {
-        let navigationController = UINavigationController (rootViewController: self.isLoggedIn ? MainTabBarController(): OnboardingViewController())
-        
-        navigationController.configureNavigationBar()
-        self.window?.rootViewController = navigationController
+        let rootViewController = self.isLoggedIn ? MainTabBarController(): OnboardingViewController()
+        self.window?.rootViewController = rootViewController
     }
 }
