@@ -11,7 +11,7 @@ class ProfileView: BaseView {
     let nameLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "달콤한 기모청바지"
+        label.text = AppSetting.nickname
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .W
         
