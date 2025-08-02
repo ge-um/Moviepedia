@@ -1,5 +1,5 @@
 //
-//  SettingNicknameViewController.swift
+//  EditNicknameViewController.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 7/31/25.
@@ -8,9 +8,9 @@
 import Toast
 import UIKit
 
-class SettingNicknameViewController: UIViewController {
+class EditNicknameViewController: UIViewController {
     
-    private let settingNicknameView = SettingNicknameView()
+    private let settingNicknameView = EditNicknameView()
     
     private var nickname = User(name: "")
         
@@ -25,7 +25,7 @@ class SettingNicknameViewController: UIViewController {
     }
 }
 
-extension SettingNicknameViewController: ViewControllerProtocol {
+extension EditNicknameViewController: ViewControllerProtocol {
     
      func configureNavigation() {
         navigationItem.title = "닉네임 설정"
@@ -38,7 +38,7 @@ extension SettingNicknameViewController: ViewControllerProtocol {
     }
     
     @objc func editButtonTapped() {
-        let vc = DetailNicknameViewController()
+        let vc = NicknameDetailViewController()
         navigationController?.pushViewController(vc, animated: true)
         
         vc.sendNickname = { nickname in

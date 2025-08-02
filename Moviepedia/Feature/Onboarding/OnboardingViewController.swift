@@ -33,7 +33,7 @@ extension OnboardingViewController: ViewControllerProtocol {
     }
     
     @objc func startButtonTapped() {
-        let vc = SettingNicknameViewController()
+        let vc = EditNicknameViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }

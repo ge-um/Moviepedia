@@ -1,5 +1,5 @@
 //
-//  DetailNicknameView.swift
+//  NicknameDetailView.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/1/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailNicknameView: BaseView {
+class NicknameDetailView: BaseView {
     // TODO: - 컴포넌트 재사용 고민해보기
     let nicknameTextField: UITextField = {
         let textField = UITextField()
@@ -39,7 +39,7 @@ class DetailNicknameView: BaseView {
     }
 }
 
-extension DetailNicknameView: ViewProtocol {
+extension NicknameDetailView: ViewProtocol {
     
     func configureSubview() {
         addSubview(nicknameTextField)

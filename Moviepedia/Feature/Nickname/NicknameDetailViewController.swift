@@ -1,5 +1,5 @@
 //
-//  DetailNicknameViewController.swift
+//  NicknameDetailViewController.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/1/25.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-// TODO: - 닉네임 작성되었다면 기존 닉네임 보여주기 분기처리하기
-class DetailNicknameViewController: UIViewController {
+// TODO: - 클로저 구문 없애기
+class NicknameDetailViewController: UIViewController {
     
-    private let detailNicknameView = DetailNicknameView()
+    private let detailNicknameView = NicknameDetailView()
     
     var sendNickname: ((User) -> Void)?
         
@@ -30,7 +30,7 @@ class DetailNicknameViewController: UIViewController {
     }
 }
 
-extension DetailNicknameViewController: ViewControllerProtocol {
+extension NicknameDetailViewController: ViewControllerProtocol {
     
     func configureNavigation() {
         navigationItem.title = "닉네임 설정"
