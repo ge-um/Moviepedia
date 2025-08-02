@@ -1,5 +1,5 @@
 //
-//  EditNicknameView.swift
+//  SetNicknameView.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 7/31/25.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class EditNicknameView: BaseView {
+final class SetNicknameView: BaseView {
     
     let nicknameTextField: UITextField = {
         let textField = UITextField()
@@ -67,7 +67,7 @@ final class EditNicknameView: BaseView {
     }
 }
 
-extension EditNicknameView: ViewProtocol {
+extension SetNicknameView: ViewProtocol {
     
     func configureSubview() {
         stackView.addArrangedSubview(nicknameTextField)

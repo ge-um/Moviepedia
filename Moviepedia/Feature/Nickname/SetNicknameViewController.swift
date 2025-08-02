@@ -1,5 +1,5 @@
 //
-//  EditNicknameViewController.swift
+//  SetNicknameViewController.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 7/31/25.
@@ -8,14 +8,14 @@
 import Toast
 import UIKit
 
-class EditNicknameViewController: UIViewController {
+class SetNicknameViewController: UIViewController {
     
-    private let settingNicknameView = EditNicknameView()
+    private let setNicknameView = SetNicknameView()
     
     private var nickname = User(name: "")
         
     override func loadView() {
-        view = settingNicknameView
+        view = setNicknameView
     }
     
     override func viewDidLoad() {
@@ -25,16 +25,16 @@ class EditNicknameViewController: UIViewController {
     }
 }
 
-extension EditNicknameViewController: ViewControllerProtocol {
+extension SetNicknameViewController: ViewControllerProtocol {
     
      func configureNavigation() {
         navigationItem.title = "닉네임 설정"
     }
 
     func bindAction() {
-        settingNicknameView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        setNicknameView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
-        settingNicknameView.completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
+        setNicknameView.completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
     }
     
     @objc func editButtonTapped() {
@@ -43,12 +43,12 @@ extension EditNicknameViewController: ViewControllerProtocol {
         
         vc.sendNickname = { nickname in
             self.nickname = nickname
-            self.settingNicknameView.nicknameTextField.text = nickname.name
+            self.setNicknameView.nicknameTextField.text = nickname.name
         }
     }
     
     @objc func completeButtonTapped() {
-        let name = settingNicknameView.nicknameTextField.text!
+        let name = setNicknameView.nicknameTextField.text!
 
         if name.isEmpty {
             view.makeToast("편집 버튼을 눌러 닉네임을 입력하세요.", position: .center)

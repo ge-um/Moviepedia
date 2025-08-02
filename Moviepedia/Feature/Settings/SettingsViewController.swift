@@ -41,7 +41,7 @@ extension SettingsViewController: ViewControllerProtocol {
     }
     
     @objc func editButtonTapped() {
-        present(EditNicknameViewController(), animated: true)
+        present(SetNicknameViewController(), animated: true)
     }
 }
 
