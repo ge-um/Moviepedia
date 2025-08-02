@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  SettingsView.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/2/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileView: BaseView {
+class SettingsView: BaseView {
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -25,11 +25,11 @@ class ProfileView: BaseView {
         configureSubview()
         configureConstraint()
         
-        tableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
     }
 }
 
-extension ProfileView: ViewProtocol {
+extension SettingsView: ViewProtocol {
     
     func configureSubview() {
         addSubview(tableView)

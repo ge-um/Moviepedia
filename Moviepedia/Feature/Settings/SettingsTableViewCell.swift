@@ -1,5 +1,5 @@
 //
-//  SettingTableViewCell.swift
+//  SettingsTableViewCell.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/2/25.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class SettingTableViewCell: BaseTableViewCell {
+class SettingsTableViewCell: BaseTableViewCell {
     
     let label: UILabel = {
         let label = UILabel()
@@ -24,7 +24,7 @@ class SettingTableViewCell: BaseTableViewCell {
     }
 }
 
-extension SettingTableViewCell: ViewProtocol {
+extension SettingsTableViewCell: ViewProtocol {
     
     func configureSubview() {
         addSubview(label)

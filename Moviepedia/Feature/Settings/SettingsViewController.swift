@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  SettingsViewController.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/2/25.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class SettingsViewController: UIViewController {
     
-    private let profileView = ProfileView()
+    private let profileView = SettingsView()
     private let content = ["자주 묻는 질문", "1:1 문의", "알림 설정", "탈퇴하기"]
     
     override func loadView() {
@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
-extension ProfileViewController: ViewControllerProtocol {
+extension SettingsViewController: ViewControllerProtocol {
     
     func configureNavigation() {
         navigationItem.title = "설정"
@@ -36,14 +36,14 @@ extension ProfileViewController: ViewControllerProtocol {
     }
 }
 
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return content.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier) as! SettingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier) as! SettingsTableViewCell
         
         cell.configureWithData(content: content[indexPath.row])
         return cell
@@ -56,5 +56,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
 @available(iOS 17.0, *)
 #Preview {
-    ProfileViewController()
+    SettingsViewController()
 }

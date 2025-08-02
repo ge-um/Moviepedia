@@ -26,7 +26,7 @@ extension MainTabBarController: ViewControllerProtocol {
         vc2.tabBarItem.image = UIImage(systemName: "film.stack")
         vc2.tabBarItem.title = "UPCOMING"
         
-        let vc3 = UINavigationController(rootViewController: ProfileViewController())
+        let vc3 = UINavigationController(rootViewController: SettingsViewController())
         vc3.configureNavigationBar()
         
         vc3.tabBarItem.image = UIImage(systemName: "person.crop.circle")
