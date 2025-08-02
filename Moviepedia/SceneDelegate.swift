@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AppSetting.isLoggedIn = status
         routeToInitialView()
     }
-
+    
     private func showSplashView() {
         window?.rootViewController = SplashViewController()
         window?.makeKeyAndVisible()

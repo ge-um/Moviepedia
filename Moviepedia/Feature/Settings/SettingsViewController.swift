@@ -9,11 +9,11 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    private let profileView = SettingsView()
+    private let settingsView = SettingsView()
     private let content = ["자주 묻는 질문", "1:1 문의", "알림 설정", "탈퇴하기"]
     
     override func loadView() {
-        view = profileView
+        view = settingsView
     }
     
     override func viewDidLoad() {
@@ -31,8 +31,8 @@ extension SettingsViewController: ViewControllerProtocol {
     }
     
     func configureTableView() {
-        profileView.tableView.delegate = self
-        profileView.tableView.dataSource = self
+        settingsView.tableView.delegate = self
+        settingsView.tableView.dataSource = self
     }
 }
 
@@ -46,11 +46,20 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier) as! SettingsTableViewCell
         
         cell.configureWithData(content: content[indexPath.row])
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row == 3
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        showQuitAlert()
     }
 }
 
