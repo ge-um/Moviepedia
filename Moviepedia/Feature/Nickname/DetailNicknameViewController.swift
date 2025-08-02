@@ -12,7 +12,7 @@ class DetailNicknameViewController: UIViewController {
     
     private let detailNicknameView = DetailNicknameView()
     
-    var sendNickname: ((Nickname) -> Void)?
+    var sendNickname: ((User) -> Void)?
         
     override func loadView() {
         view = detailNicknameView
@@ -25,7 +25,7 @@ class DetailNicknameViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        let nickname = Nickname(name: detailNicknameView.nicknameTextField.text!)
+        let nickname = User(name: detailNicknameView.nicknameTextField.text!)
         sendNickname?(nickname)
     }
 }
@@ -50,7 +50,7 @@ extension DetailNicknameViewController: ViewControllerProtocol {
             return
         }
         
-        let nickname = Nickname(name: name)
+        let nickname = User(name: name)
         let message: String
         
         switch nickname.isValid {

@@ -12,7 +12,7 @@ class SettingNicknameViewController: UIViewController {
     
     private let settingNicknameView = SettingNicknameView()
     
-    private var nickname = Nickname(name: "")
+    private var nickname = User(name: "")
         
     override func loadView() {
         view = settingNicknameView

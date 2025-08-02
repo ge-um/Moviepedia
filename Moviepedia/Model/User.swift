@@ -5,7 +5,7 @@
 //  Created by 금가경 on 8/2/25.
 //
 
-struct Nickname {
+struct User {
     let name: String
     
     var isValid: Result<Bool, ValidationError> {
