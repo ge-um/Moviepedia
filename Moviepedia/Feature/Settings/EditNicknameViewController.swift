@@ -53,7 +53,7 @@ extension EditNicknameViewController: ViewControllerProtocol {
         dismiss(animated: true)
     }
     
-    // TODO: - notification으로 UserDefaults 변화 감지 구현하기
+    //TODO: - save할 때 유효성검사 하기.
     @objc private func saveButtonTapped() {
         let newNickname = editNicknameView.nicknameTextField.text!
         AppSetting.nickname = newNickname

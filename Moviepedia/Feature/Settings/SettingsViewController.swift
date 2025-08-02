@@ -38,6 +38,8 @@ extension SettingsViewController: ViewControllerProtocol {
     
     func bindAction() {
         settingsView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: NSNotification.Name("nicknameChanged"), object: nil)
     }
     
     @objc func editButtonTapped() {
@@ -45,6 +47,12 @@ extension SettingsViewController: ViewControllerProtocol {
         modal.modalPresentationStyle = .pageSheet
         modal.sheetPresentationController?.prefersGrabberVisible = true
         present(modal, animated: true)
+    }
+    
+    @objc func changeNickname(notification: NSNotification) {
+        if let nickname = notification.userInfo?["nickname"] as? String {
+            settingsView.profileView.nameLabel.text = nickname
+        }
     }
 }
 
