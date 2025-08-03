@@ -53,11 +53,17 @@ extension EditNicknameViewController: ViewControllerProtocol {
         dismiss(animated: true)
     }
     
-    //TODO: - save할 때 유효성검사 하기.
+    //TODO: - 유효하지 않은 데이터가 갔을 때도 닉네임 수정 화면이 변경되어야 하는지?
     @objc private func saveButtonTapped() {
         let newNickname = editNicknameView.nicknameTextField.text!
-        AppSetting.nickname = newNickname
-
+        let user = User(name: newNickname)
+        
+        switch user.isValid {
+        case .success:
+            AppSetting.nickname = newNickname
+        case .failure:
+            break
+        }
         dismiss(animated: true)
     }
     
