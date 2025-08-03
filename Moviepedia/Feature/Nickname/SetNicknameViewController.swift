@@ -9,7 +9,6 @@ import Toast
 import UIKit
 
 class SetNicknameViewController: UIViewController {
-    
     private let setNicknameView = SetNicknameView()
     
     private var nickname = User(name: "")
@@ -35,6 +34,7 @@ extension SetNicknameViewController: ViewControllerProtocol {
         setNicknameView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         setNicknameView.completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
+        
     }
     
     @objc func editButtonTapped() {
@@ -56,9 +56,10 @@ extension SetNicknameViewController: ViewControllerProtocol {
                 
         switch nickname.isValid {
         case .success:
-            NotificationCenter.default.post(name: NSNotification.Name("LoginStatusChanged"), object: nil, userInfo: ["isLoggedIn" : true])
             AppSetting.nickname = name
             AppSetting.signUpDate = Date()
+            
+            NotificationCenter.default.post(name: NSNotification.Name("LoginStatusChanged"), object: nil, userInfo: ["isLoggedIn" : true])
 
         case .failure(let error):
             view.makeToast(error.localizedDescription, position: .center)
