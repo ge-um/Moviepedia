@@ -38,6 +38,7 @@ extension MainViewController: ViewControllerProtocol {
         
         mainView.tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
         mainView.tableView.register(MainTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderFooterView.identifier)
+        mainView.tableView.isScrollEnabled = false
     }
     
     // TODO: - 똑같은 함수를 똑같이 다른 뷰컨에 정의하는게 맞나?
