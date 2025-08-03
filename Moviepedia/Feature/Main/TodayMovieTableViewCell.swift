@@ -62,7 +62,17 @@ extension TodayMovieTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
+        
+        NetworkManager.shared.request { (result: Result<TodayMovie, Error>) in
+            
+            switch result {
+            case .success(let success):
+                cell.configureWithData(movie: success.results[indexPath.row])
+            case .failure:
+                break
+            }
+        }
         
         return cell
     }

@@ -7,24 +7,22 @@
 
 import SnapKit
 import UIKit
+import Kingfisher
 
 class TodayMovieCollectionViewCell: BaseCollectionViewCell {
     
-    let movieImageView: UIImageView = {
-        
+    let moviePosterView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "star")
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .red
-        return imageView
         
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
     }()
     
     //TODO: - color white -> W로 바꾸기
     let movieTitle: UILabel = {
         let label  = UILabel()
         
-        label.text = "티키키"
         label.font = .systemFont(ofSize: 19, weight: .bold)
         label.textColor = .W
         
@@ -42,6 +40,7 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         return button
     }()
     
+    // TODO: - 타이틀이 너무 길 때 좋아요 버튼이 레이아웃에서 없어지는 문제 해결하기
     let stackView: UIStackView = {
         let stackView = UIStackView()
         
@@ -52,10 +51,10 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         return stackView
     }()
     
-    let movieDescription: UILabel = {
+    // TODO: - Overview가 nil일때 텍스트 안 내려오게 하기
+    let movieOverview: UILabel = {
         let label = UILabel()
         
-        label.text = "으아아진짜긴영화제목으아아진짜긴영화제목으아아진짜긴영화제목으아아진짜긴영화제목으아아진짜긴영화제목으아아진짜긴영화제목으아아진짜긴영화제목아니설명이구나아니설명이구나아니설명이구나아니설명이구나아니설명이구나"
         label.font = .systemFont(ofSize: 14, weight: .bold)
         label.textColor = .W
         label.numberOfLines = 3
@@ -74,31 +73,45 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
 extension TodayMovieCollectionViewCell: ViewProtocol {
     // TODO: - 왜 contentView에 넣더라?
     func configureSubview() {
-        contentView.addSubview(movieImageView)
+        contentView.addSubview(moviePosterView)
         
         stackView.addArrangedSubview(movieTitle)
         stackView.addArrangedSubview(likeButton)
         
         contentView.addSubview(stackView)
-        contentView.addSubview(movieDescription)
+        contentView.addSubview(movieOverview)
     }
     
     func configureConstraint() {
-        movieImageView.snp.makeConstraints { make in
+        moviePosterView.snp.makeConstraints { make in
             make.top.equalTo(contentView)
             make.height.equalTo(340)
             make.horizontalEdges.equalToSuperview()
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.equalTo(movieImageView.snp.bottom).offset(8)
+            make.top.equalTo(moviePosterView.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview()
         }
         
-        movieDescription.snp.makeConstraints { make in
+        movieOverview.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().inset(8)
         }
+    }
+    
+    func configureWithData(movie: Movie) {
+        if let url = URL(string: MovieURL.image + movie.poster_path) {
+            moviePosterView.kf.setImage(with: url,
+                                        options:
+                                            [.processor(DownsamplingImageProcessor(size: moviePosterView.bounds.size)),
+                                             .scaleFactor(UIScreen.main.scale),
+                                             .cacheOriginalImage,
+                                             .memoryCacheExpiration(.days(1))
+                                            ])
+        }
+        movieTitle.text = movie.title
+        movieOverview.text = movie.overview
     }
 }
