@@ -35,8 +35,8 @@ extension RecentSearchTableViewCell: ViewProtocol {
     
     func configureConstraint() {
         label.snp.makeConstraints { make in
-            make.centerY.equalTo(safeAreaLayoutGuide)
             make.centerX.equalTo(safeAreaLayoutGuide)
+            make.verticalEdges.equalTo(safeAreaLayoutGuide).inset(24)
         }
     }
 }

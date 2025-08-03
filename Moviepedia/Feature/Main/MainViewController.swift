@@ -34,7 +34,9 @@ extension MainViewController: ViewControllerProtocol {
     func configureTableView() {
         mainView.tableView.dataSource = self
         mainView.tableView.delegate = self
+        
         mainView.tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
+        mainView.tableView.register(MainTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderFooterView.identifier)
     }
 }
 
@@ -54,15 +56,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainTableViewHeaderFooterView.identifier) as! MainTableViewHeaderFooterView
         
-        let label = UILabel()
-        label.text = sectionTitle[section]
-        label.textColor = .white
-        return label
+        header.title.text = sectionTitle[section]
+        
+        return header
     }
 }

@@ -40,10 +40,12 @@ extension MainView: ViewProtocol {
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(profileView.snp.bottom)
+            make.top.equalTo(profileView.snp.bottom).offset(16)
             make.bottom.equalTo(safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
         }
+        
+        tableView.sectionHeaderTopPadding = 0
     }
 }
 
