@@ -38,6 +38,8 @@ extension MainViewController: ViewControllerProtocol {
         
         mainView.tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
         mainView.tableView.register(MainTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderFooterView.identifier)
+        mainView.tableView.register(TodayMovieTableViewCell.self, forCellReuseIdentifier: TodayMovieTableViewCell.identifier)
+
         mainView.tableView.isScrollEnabled = false
     }
     
@@ -74,9 +76,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTableViewCell.identifier) as? RecentSearchTableViewCell else { return UITableViewCell() }
         
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: RecentSearchTableViewCell.identifier) as! RecentSearchTableViewCell
+            return cell
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TodayMovieTableViewCell.identifier) as! TodayMovieTableViewCell
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -85,5 +93,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         header.title.text = sectionTitle[section]
         
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 44 : 480
     }
 }

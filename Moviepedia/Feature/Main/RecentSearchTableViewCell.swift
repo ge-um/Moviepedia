@@ -30,13 +30,13 @@ class RecentSearchTableViewCell: BaseTableViewCell {
 extension RecentSearchTableViewCell: ViewProtocol {
     
     func configureSubview() {
-        addSubview(label)
+        contentView.addSubview(label)
     }
     
     func configureConstraint() {
         label.snp.makeConstraints { make in
-            make.centerX.equalTo(safeAreaLayoutGuide)
-            make.verticalEdges.equalTo(safeAreaLayoutGuide).inset(24)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
 }
