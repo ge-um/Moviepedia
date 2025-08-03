@@ -33,5 +33,7 @@ extension MainTabBarController: ViewControllerProtocol {
         vc3.tabBarItem.title = "PROFILE"
         
         viewControllers = [vc1, vc2, vc3]
+        
+        tabBar.barStyle = .black
     }
 }
