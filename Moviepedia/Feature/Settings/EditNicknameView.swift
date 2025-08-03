@@ -12,6 +12,7 @@ final class EditNicknameView: BaseView {
     let nicknameTextField: UITextField = {
         let textField = UITextField()
         
+        textField.text = AppSetting.nickname
         textField.textColor = .W
         textField.font = .systemFont(ofSize: 13)
         textField.isEnabled = false
