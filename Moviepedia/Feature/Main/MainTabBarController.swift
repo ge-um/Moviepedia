@@ -17,10 +17,12 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController: ViewControllerProtocol {
     
+    // TODO: - 이렇게 따로따로 네비게이션바를 커스텀하는 방법밖에없는가..
     func configureTabBar() {
         let vc1 = UINavigationController(rootViewController: MainViewController())
         vc1.tabBarItem.image = UIImage(systemName: "popcorn")
         vc1.tabBarItem.title = "CINEMA"
+        vc1.configureNavigationBar()
         
         let vc2 = UIViewController()
         vc2.tabBarItem.image = UIImage(systemName: "film.stack")
