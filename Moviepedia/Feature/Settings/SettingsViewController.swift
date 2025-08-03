@@ -34,6 +34,7 @@ extension SettingsViewController: ViewControllerProtocol {
     func configureTableView() {
         settingsView.tableView.delegate = self
         settingsView.tableView.dataSource = self
+        settingsView.tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
     }
     
     func bindAction() {

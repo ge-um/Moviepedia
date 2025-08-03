@@ -8,6 +8,7 @@
 import UIKit
 
 final class SettingsView: BaseView {
+    
     let profileView = ProfileView()
     
     let tableView: UITableView = {
@@ -26,12 +27,11 @@ final class SettingsView: BaseView {
         
         configureSubview()
         configureConstraint()
-        
-        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
     }
 }
 
 extension SettingsView: ViewProtocol {
+    
     func configureSubview() {
         addSubview(profileView)
         addSubview(tableView)
