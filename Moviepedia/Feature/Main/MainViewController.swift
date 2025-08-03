@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureNavigation()
         configureTableView()
+        bindAction()
     }
 }
 
@@ -37,6 +38,27 @@ extension MainViewController: ViewControllerProtocol {
         
         mainView.tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
         mainView.tableView.register(MainTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderFooterView.identifier)
+    }
+    
+    // TODO: - 똑같은 함수를 똑같이 다른 뷰컨에 정의하는게 맞나?
+    func bindAction() {
+        mainView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: NSNotification.Name("nicknameChanged"), object: nil)
+    }
+    
+    @objc func editButtonTapped() {
+        print(#function)
+        let modal = UINavigationController(rootViewController: EditNicknameViewController())
+        modal.modalPresentationStyle = .pageSheet
+        modal.sheetPresentationController?.prefersGrabberVisible = true
+        present(modal, animated: true)
+    }
+    
+    @objc func changeNickname(notification: NSNotification) {
+        if let nickname = notification.userInfo?["nickname"] as? String {
+            mainView.profileView.nameLabel.text = nickname
+        }
     }
 }
 
