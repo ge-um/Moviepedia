@@ -8,11 +8,12 @@
 import UIKit
 
 class ProfileView: BaseView {
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         
         label.text = AppSetting.nickname
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 19, weight: .black)
         label.textColor = .W
         
         return label
@@ -77,6 +78,7 @@ class ProfileView: BaseView {
 }
 
 extension ProfileView: ViewProtocol {
+    
     func configureSubview() {
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(editButton)
@@ -88,11 +90,11 @@ extension ProfileView: ViewProtocol {
     func configureConstraint() {
         stackView.snp.makeConstraints { make in
             make.top.equalTo(16)
-            make.horizontalEdges.equalTo(safeAreaInsets).inset(16)
+            make.horizontalEdges.equalTo(safeAreaInsets).inset(12)
         }
         
         movieBoxStatusButton.snp.makeConstraints { make in
-            make.bottom.equalTo(safeAreaInsets).inset(16)
+            make.bottom.equalTo(safeAreaInsets).inset(12)
             make.height.equalTo(36)
             make.horizontalEdges.equalTo(safeAreaInsets).inset(16)
         }

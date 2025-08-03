@@ -39,8 +39,8 @@ extension SettingsView: ViewProtocol {
     
     func configureConstraint() {
         profileView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(20)
-            make.height.equalTo(108)
+            make.top.equalTo(safeAreaLayoutGuide).offset(12)
+            make.height.equalTo(96)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(12)
         }
         
