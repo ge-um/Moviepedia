@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseCollectionViewCell: UICollectionViewCell {
+class BaseCollectionViewCell: UICollectionViewCell, IsIdentifiable {
     
     static var identifier: String {
         return String(describing: self)

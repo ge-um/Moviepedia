@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
+class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView, IsIdentifiable {
     
     static var identifier: String {
         return String(describing: self)

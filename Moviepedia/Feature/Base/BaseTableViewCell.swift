@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseTableViewCell: UITableViewCell {
+class BaseTableViewCell: UITableViewCell, IsIdentifiable  {
     
     static var identifier: String {
         return String(describing: self)
