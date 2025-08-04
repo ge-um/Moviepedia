@@ -1,5 +1,5 @@
 //
-//  BaseTableViewHeaderFooterView.swift
+//  BaseTableViewHeaderView.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/3/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView, IsIdentifiable {
+class BaseTableViewHeaderView: UITableViewHeaderFooterView, IsIdentifiable {
     
     static var identifier: String {
         return String(describing: self)

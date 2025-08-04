@@ -9,16 +9,30 @@ import SnapKit
 import UIKit
 
 class MovieDetailView: BaseView {
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        
+        tableView.backgroundColor = .red
+        
+        return tableView
+    }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureSubview()
+        configureConstraint()
+    }
 }
 
 extension MovieDetailView: ViewProtocol {
     func configureSubview() {
-        
-        
+        addSubview(tableView)
     }
     
     func configureConstraint() {
-        
+        tableView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.verticalEdges.equalTo(safeAreaLayoutGuide)
+        }
     }
 }
