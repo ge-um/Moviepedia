@@ -83,6 +83,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: TodayMovieTableViewCell.identifier) as! TodayMovieTableViewCell
+            
+            cell.collectionView.register(TodayMovieCollectionViewCell.self, forCellWithReuseIdentifier: TodayMovieCollectionViewCell.identifier)
+            cell.collectionView.dataSource = self
+            cell.collectionView.delegate = self
+
             return cell
         }
     }
@@ -97,5 +102,34 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 44 : 480
+    }
+}
+
+// TODO: - 이게맞나.ㅎ 분리 어떻게 안될까
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
+        
+        NetworkManager.shared.request { (result: Result<TodayMovie, Error>) in
+            
+            switch result {
+            case .success(let success):
+                cell.configureWithData(movie: success.results[indexPath.row])
+            case .failure:
+                break
+            }
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = MovieDetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

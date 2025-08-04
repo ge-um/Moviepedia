@@ -24,13 +24,11 @@ class TodayMovieTableViewCell: BaseTableViewCell {
         return collectionView
     }()
     
-    // TODO: - zz delegate 등록 여기서 해야하나
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureSubview()
         configureConstraint()
-        configureCollectionView()
     }
 }
 
@@ -46,34 +44,5 @@ extension TodayMovieTableViewCell: ViewProtocol {
             make.horizontalEdges.equalTo(contentView)
             make.height.equalTo(420)
         }
-    }
-    
-    func configureCollectionView() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(TodayMovieCollectionViewCell.self, forCellWithReuseIdentifier: TodayMovieCollectionViewCell.identifier)
-    }
-}
-
-extension TodayMovieTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
-        
-        NetworkManager.shared.request { (result: Result<TodayMovie, Error>) in
-            
-            switch result {
-            case .success(let success):
-                cell.configureWithData(movie: success.results[indexPath.row])
-            case .failure:
-                break
-            }
-        }
-        
-        return cell
     }
 }
