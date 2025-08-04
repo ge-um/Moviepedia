@@ -48,6 +48,7 @@ extension MainViewController: ViewControllerProtocol {
         mainView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: NSNotification.Name("nicknameChanged"), object: nil)
+        
     }
     
     @objc func editButtonTapped() {
@@ -87,7 +88,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cell.collectionView.register(TodayMovieCollectionViewCell.self, forCellWithReuseIdentifier: TodayMovieCollectionViewCell.identifier)
             cell.collectionView.dataSource = self
             cell.collectionView.delegate = self
-
+            
             return cell
         }
     }

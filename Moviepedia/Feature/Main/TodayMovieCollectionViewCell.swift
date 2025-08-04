@@ -34,9 +34,20 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         
         var config = UIButton.Configuration.plain()
         config.image = UIImage(systemName: "heart")
+        config.baseBackgroundColor = .clear
         
         button.configuration = config
         
+        button.configurationUpdateHandler = {
+            button in
+            var config = button.configuration
+            
+            config?.image = button.isSelected ?
+            UIImage(systemName: "heart.fill") :
+            UIImage(systemName: "heart")
+            
+            button.configuration = config
+        }
         return button
     }()
     
@@ -67,6 +78,16 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         
         configureSubview()
         configureConstraint()
+        bindAction()
+    }
+    
+    func bindAction() {
+        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func likeButtonTapped() {
+        print(#function)
+        likeButton.isSelected.toggle()
     }
 }
 
