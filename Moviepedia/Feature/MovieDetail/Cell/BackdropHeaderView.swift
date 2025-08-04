@@ -158,9 +158,6 @@ extension BackdropHeaderView: UICollectionViewDelegate, UICollectionViewDataSour
         
         return cell
     }
-}
-
-extension BackdropHeaderView: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.visibleSize.width
