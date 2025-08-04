@@ -8,6 +8,7 @@
 import UIKit
 
 final class EditNicknameViewController: UIViewController {
+    
     private let editNicknameView = EditNicknameView()
     
     private var nickname = User(name: "")
@@ -24,10 +25,8 @@ final class EditNicknameViewController: UIViewController {
 }
 
 extension EditNicknameViewController: ViewControllerProtocol {
+    
     func configureNavigation() {
-        navigationController?.configureNavigationBar()
-        navigationItem.standardAppearance = .defaultBarAppearance
-        
         navigationItem.title = "닉네임 편집"
         
         let rightItem = UIBarButtonItem(title: "저장",
@@ -42,7 +41,6 @@ extension EditNicknameViewController: ViewControllerProtocol {
                                        target: self,
                                        action: #selector(dismissButtonTapped))
         navigationItem.leftBarButtonItem = leftItem
-        
     }
     
     func bindAction() {
@@ -52,8 +50,7 @@ extension EditNicknameViewController: ViewControllerProtocol {
     @objc private func dismissButtonTapped() {
         dismiss(animated: true)
     }
-    
-    //TODO: - 유효하지 않은 데이터가 갔을 때도 닉네임 수정 화면이 변경되어야 하는지?
+
     @objc private func saveButtonTapped() {
         let newNickname = editNicknameView.nicknameTextField.text!
         let user = User(name: newNickname)
