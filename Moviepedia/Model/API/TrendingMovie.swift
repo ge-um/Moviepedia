@@ -1,11 +1,11 @@
 //
-//  TodayMovie.swift
+//  TrendingMovie.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/3/25.
 //
 
-struct TodayMovie: Decodable {
+struct TrendingMovie: Decodable {
     let results: [Movie]
 }
 

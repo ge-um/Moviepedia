@@ -119,7 +119,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
         
-        NetworkManager.shared.request(url: MovieURL.trending) { (result: Result<TodayMovie, Error>) in
+        NetworkManager.shared.request(url: MovieURL.trending) { (result: Result<TrendingMovie, Error>) in
             
             switch result {
             case .success(let todayMovie):
