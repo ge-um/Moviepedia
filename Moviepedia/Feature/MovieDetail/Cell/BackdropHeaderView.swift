@@ -42,6 +42,7 @@ class BackdropHeaderView: BaseTableViewHeaderView {
         return pageControl
     }()
     
+    // TODO: - 장르 정보 취합해서 보여주기
     let infoLabel: UILabel = {
         let label = UILabel()
         
@@ -143,6 +144,7 @@ extension BackdropHeaderView: ViewProtocol {
 // TODO: - 이걸 어떻게 할 것인가..어쨌든 이것도 뷰조작하는거니까 밖으로 빼는게 맞지않나?
 extension BackdropHeaderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
+    // TODO: - 이미지 다섯개로 제한하기
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }

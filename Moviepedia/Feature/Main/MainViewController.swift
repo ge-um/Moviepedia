@@ -30,7 +30,10 @@ extension MainViewController: ViewControllerProtocol {
     
     func configureNavigation() {
         navigationItem.title = "Moviepedia"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"))
+        
+        let rightButton = UIBarButtonItem(title: nil, image: UIImage(systemName: "magnifyingglass"), target: self, action: #selector(searchButtonTapped))
+        
+        navigationItem.rightBarButtonItem = rightButton
     }
     
     func configureTableView() {
@@ -64,6 +67,11 @@ extension MainViewController: ViewControllerProtocol {
         if let nickname = notification.userInfo?["nickname"] as? String {
             mainView.profileView.nameLabel.text = nickname
         }
+    }
+    
+    @objc func searchButtonTapped() {
+        let vc = SearchResultViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
