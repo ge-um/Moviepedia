@@ -40,6 +40,8 @@ extension MovieDetailViewController: ViewControllerProtocol {
         
         movieDetailView.tableView.register(SynopsisTableViewCell.self, forCellReuseIdentifier: SynopsisTableViewCell.identifier)
         movieDetailView.tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
+        
+        movieDetailView.tableView.register(BackdropHeaderView.self, forHeaderFooterViewReuseIdentifier:  BackdropHeaderView.identifier)
     }
 }
 
@@ -56,15 +58,31 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier) as! SynopsisTableViewCell
         
+        
         return cell
     }
     
+    // TODO: - Header 재활용 방법 생각해보기.
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainTableViewHeaderView.identifier) as! MainTableViewHeaderView
-        
-        header.configureStyle(buttonTitle: "More", buttonIsHidden: false)
-        header.configureWithData(sectionTitle: sectionTitle[section])
-        
-        return header
+        if section == 0 {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: BackdropHeaderView.identifier) as! BackdropHeaderView
+            
+            header.configureStyle(buttonTitle: "More", buttonIsHidden: false)
+            header.configureWithData(sectionTitle: sectionTitle[section])
+            
+            return header
+            
+        } else {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainTableViewHeaderView.identifier) as! MainTableViewHeaderView
+            
+            header.configureStyle(buttonTitle: "More", buttonIsHidden: true)
+            header.configureWithData(sectionTitle: sectionTitle[section])
+            
+            return header
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? 300 : UITableView.automaticDimension
     }
 }

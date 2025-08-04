@@ -9,6 +9,7 @@ import SnapKit
 import UIKit
 
 class MovieDetailView: BaseView {
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         
@@ -25,14 +26,15 @@ class MovieDetailView: BaseView {
 }
 
 extension MovieDetailView: ViewProtocol {
+    
     func configureSubview() {
         addSubview(tableView)
     }
     
     func configureConstraint() {
         tableView.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.verticalEdges.equalTo(safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
         }
     }
 }
