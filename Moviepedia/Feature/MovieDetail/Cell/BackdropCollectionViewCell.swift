@@ -11,7 +11,6 @@ import UIKit
 class BackdropCollectionViewCell: BaseCollectionViewCell {
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .blue
         
         return imageView
     }()
@@ -30,7 +29,7 @@ extension BackdropCollectionViewCell: ViewProtocol {
     
     func configureConstraint() {
         imageView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView)
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
     }
 }
