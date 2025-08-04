@@ -12,7 +12,6 @@ class MainViewController: UIViewController {
     let mainView = MainView()
     
     let sectionTitle = ["최근검색어", "오늘의 영화"]
-    
     var trendingMovies: [Movie] = []
     
     override func loadView() {
@@ -137,9 +136,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let id = trendingMovies[indexPath.row].id
+        let movie = trendingMovies[indexPath.row]
+        
         let vc = MovieDetailViewController()
-        vc.id = id
+        vc.movie = movie
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }

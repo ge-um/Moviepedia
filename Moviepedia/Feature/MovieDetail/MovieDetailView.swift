@@ -12,9 +12,7 @@ class MovieDetailView: BaseView {
     
     let tableView: UITableView = {
         let tableView = UITableView()
-        
-        tableView.backgroundColor = .red
-        
+        tableView.backgroundColor = .clear
         return tableView
     }()
     

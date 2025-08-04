@@ -12,8 +12,7 @@ class MovieDetailViewController: UIViewController {
     let movieDetailView = MovieDetailView()
     
     let sectionTitle = ["Synopsis", "Cast"]
-    
-    var id: Int?
+    var movie: Movie?
     
     override func loadView() {
         view = movieDetailView
@@ -30,7 +29,7 @@ class MovieDetailViewController: UIViewController {
 extension MovieDetailViewController: ViewControllerProtocol {
     
     func configureNavigation() {
-        navigationItem.title = "하얼빈"
+        navigationItem.title = movie?.title
         
         // TODO: - 좋아요 데이터 userDefaults에 저장후 불러오기
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"))
@@ -59,7 +58,9 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier) as! SynopsisTableViewCell
-                
+        
+        cell.label.text = movie?.overview
+
         return cell
     }
     
@@ -71,7 +72,8 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.configureStyle(buttonTitle: "More", buttonIsHidden: false)
             header.configureWithData(sectionTitle: sectionTitle[section])
             
-            NetworkManager.shared.request(url: MovieURL.backdrop(id: id!)) { (result: Result<MovieImage, Error>) in
+            // TODO: - 강제 언래핑 제거하기
+            NetworkManager.shared.request(url: MovieURL.backdrop(id: movie!.id)) { (result: Result<MovieImage, Error>) in
                                 
                 switch result {
                     

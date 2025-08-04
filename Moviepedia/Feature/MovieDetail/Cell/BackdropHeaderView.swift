@@ -5,6 +5,7 @@
 //  Created by 금가경 on 8/4/25.
 //
 
+// TODO: Kingfisher 제거?
 import SnapKit
 import Kingfisher
 import UIKit
@@ -45,6 +46,7 @@ class BackdropHeaderView: BaseTableViewHeaderView {
         let label = UILabel()
         
         label.text = "2024어쩌구 8.0 액션스릴러"
+        label.textColor = .W
         
         label.textAlignment = .center
         
