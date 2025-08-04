@@ -57,11 +57,24 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier) as! SynopsisTableViewCell
         
-        cell.label.text = movie?.overview
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier) as! SynopsisTableViewCell
+            
+            cell.label.text = movie?.overview
 
-        return cell
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CastTableViewCell.identifier) as! CastTableViewCell
+            
+            // TODO: - 레이블텍스트채우기
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return indexPath.section == 0 ? UITableView.automaticDimension : 68
     }
     
     // TODO: - Header 재활용 방법 생각해보기.

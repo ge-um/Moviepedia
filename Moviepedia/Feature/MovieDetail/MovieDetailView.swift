@@ -20,6 +20,7 @@ class MovieDetailView: BaseView {
         super.init(frame: frame)
         configureSubview()
         configureConstraint()
+        register()
     }
 }
 
@@ -34,5 +35,9 @@ extension MovieDetailView: ViewProtocol {
             make.verticalEdges.equalTo(safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
         }
+    }
+    
+    func register() {
+        tableView.register(CastTableViewCell.self, forCellReuseIdentifier: CastTableViewCell.identifier)
     }
 }
