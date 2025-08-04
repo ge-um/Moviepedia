@@ -5,6 +5,7 @@
 //  Created by 금가경 on 8/4/25.
 //
 
+import Kingfisher
 import UIKit
 
 class CastTableViewCell: BaseTableViewCell {
@@ -12,7 +13,8 @@ class CastTableViewCell: BaseTableViewCell {
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 26
-        imageView.backgroundColor = .blue
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .Gray
         
         return imageView
     }()
@@ -73,5 +75,18 @@ extension CastTableViewCell: ViewProtocol {
             make.leading.equalTo(actorNameLabel.snp.trailing).offset(8)
             make.centerY.equalTo(safeAreaLayoutGuide)
         }
+    }
+    
+    func configureData(cast: Cast) {
+        if let path = cast.profile_path, let url = URL(string: MovieURL.image + path) {
+            profileImageView.kf.setImage(with: url, options:
+                                            [.processor(DownsamplingImageProcessor(size: profileImageView.bounds.size)),
+                                             .scaleFactor(UIScreen.main.scale),
+                                             .cacheOriginalImage,
+                                             .memoryCacheExpiration(.days(1))
+                                            ])
+        }
+        actorNameLabel.text = cast.name
+        characterNameLabel.text = cast.character
     }
 }

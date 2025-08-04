@@ -13,7 +13,8 @@ class MovieDetailViewController: UIViewController {
     
     let sectionTitle = ["Synopsis", "Cast"]
     var movie: Movie?
-    
+    var cast: [Cast]?
+        
     override func loadView() {
         view = movieDetailView
     }
@@ -23,6 +24,7 @@ class MovieDetailViewController: UIViewController {
         
         configureNavigation()
         configureTableView()
+        configureData()
     }
 }
 
@@ -44,6 +46,18 @@ extension MovieDetailViewController: ViewControllerProtocol {
         
         movieDetailView.tableView.register(BackdropHeaderView.self, forHeaderFooterViewReuseIdentifier:  BackdropHeaderView.identifier)
     }
+    
+    func configureData() {
+        NetworkManager.shared.request(url: MovieURL.credit(id: movie!.id)) { (result: Result<Credit, Error>) in
+            switch result {
+            case .success(let credit):
+                self.cast = credit.cast
+                self.movieDetailView.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -53,7 +67,8 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        guard let count = cast?.count else { return 1 }
+        return section == 0 ? 1 : count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,8 +82,11 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CastTableViewCell.identifier) as! CastTableViewCell
             
-            // TODO: - 레이블텍스트채우기
+            guard let cast = cast?[indexPath.row] else { return UITableViewCell() }
+            
+            cell.configureData(cast: cast)
             return cell
+            
         }
     }
     

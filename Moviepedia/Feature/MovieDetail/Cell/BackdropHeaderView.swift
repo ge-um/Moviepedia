@@ -150,6 +150,7 @@ extension BackdropHeaderView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackdropCollectionViewCell.identifier, for: indexPath) as! BackdropCollectionViewCell
         
+        // TODO: - 다운샘플링
         let url = URL(string: MovieURL.image + images[indexPath.row].file_path)
         cell.imageView.kf.setImage(with: url)
         
