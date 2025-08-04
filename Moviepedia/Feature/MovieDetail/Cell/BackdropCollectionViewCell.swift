@@ -9,6 +9,7 @@ import SnapKit
 import UIKit
 
 class BackdropCollectionViewCell: BaseCollectionViewCell {
+    
     let imageView = UIImageView()
     
     override init(frame: CGRect) {
@@ -19,6 +20,7 @@ class BackdropCollectionViewCell: BaseCollectionViewCell {
 }
 
 extension BackdropCollectionViewCell: ViewProtocol {
+    
     func configureSubview() {
         addSubview(imageView)
     }
