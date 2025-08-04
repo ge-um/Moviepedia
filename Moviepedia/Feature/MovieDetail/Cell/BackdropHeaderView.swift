@@ -6,11 +6,12 @@
 //
 
 import SnapKit
+import Kingfisher
 import UIKit
 
 class BackdropHeaderView: BaseTableViewHeaderView {
     
-    let images: [UIColor] = [.black, .systemPink, .systemCyan, .systemGreen, .systemBrown]
+    var images: [Backdrop] = []
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -25,7 +26,7 @@ class BackdropHeaderView: BaseTableViewHeaderView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "PageCell")
+        collectionView.register(BackdropCollectionViewCell.self, forCellWithReuseIdentifier: BackdropCollectionViewCell.identifier)
 
         return collectionView
     }()
@@ -139,20 +140,23 @@ extension BackdropHeaderView: ViewProtocol {
 
 // TODO: - 이걸 어떻게 할 것인가..어쨌든 이것도 뷰조작하는거니까 밖으로 빼는게 맞지않나?
 extension BackdropHeaderView: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PageCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BackdropCollectionViewCell.identifier, for: indexPath) as! BackdropCollectionViewCell
         
-        cell.backgroundColor = images[indexPath.row]
+        let url = URL(string: MovieURL.image + images[indexPath.row].file_path)
+        cell.imageView.kf.setImage(with: url)
         
         return cell
     }
 }
 
 extension BackdropHeaderView: UIScrollViewDelegate {
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.visibleSize.width
         let currentPage = Int(scrollView.contentOffset.x / pageWidth)

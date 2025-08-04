@@ -13,8 +13,8 @@ final class NetworkManager {
     
     private init() {}
     
-    func request<T: Decodable>(completionHandler: @escaping (Result<T, Error>) -> Void) {
-        let url = URL(string: MovieURL.trending)!
+    func request<T: Decodable>(url: String, completionHandler: @escaping (Result<T, Error>) -> Void) {
+        let url = URL(string: url)!
         
         let headers: HTTPHeaders = [
             "accept": "application/json",

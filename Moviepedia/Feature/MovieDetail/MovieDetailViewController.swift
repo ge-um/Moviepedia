@@ -13,6 +13,8 @@ class MovieDetailViewController: UIViewController {
     
     let sectionTitle = ["Synopsis", "Cast"]
     
+    var id: Int?
+    
     override func loadView() {
         view = movieDetailView
     }
@@ -57,8 +59,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier) as! SynopsisTableViewCell
-        
-        
+                
         return cell
     }
     
@@ -70,6 +71,18 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.configureStyle(buttonTitle: "More", buttonIsHidden: false)
             header.configureWithData(sectionTitle: sectionTitle[section])
             
+            NetworkManager.shared.request(url: MovieURL.backdrop(id: id!)) { (result: Result<MovieImage, Error>) in
+                                
+                switch result {
+                    
+                case .success(let response):
+                    header.images = response.backdrops
+                    header.collectionView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+                        
             return header
             
         } else {
@@ -86,3 +99,4 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
         return section == 0 ? 300 : UITableView.automaticDimension
     }
 }
+

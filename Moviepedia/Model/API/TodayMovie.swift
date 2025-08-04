@@ -10,6 +10,7 @@ struct TodayMovie: Decodable {
 }
 
 struct Movie: Decodable {
+    let id: Int
     let title: String
     let overview: String
     let poster_path: String

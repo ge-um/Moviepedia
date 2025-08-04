@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
     
     let sectionTitle = ["최근검색어", "오늘의 영화"]
     
+    var trendingMovies: [Movie] = []
+    
     override func loadView() {
         view = mainView
     }
@@ -50,7 +52,7 @@ extension MainViewController: ViewControllerProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: NSNotification.Name("nicknameChanged"), object: nil)
         
     }
-    
+
     @objc func editButtonTapped() {
         print(#function)
         let modal = UINavigationController(rootViewController: EditNicknameViewController())
@@ -113,24 +115,31 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return 20
     }
     
+    // TODO: cell에서 업데이트 안하도록 분리
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
         
-        NetworkManager.shared.request { (result: Result<TodayMovie, Error>) in
+        NetworkManager.shared.request(url: MovieURL.trending) { (result: Result<TodayMovie, Error>) in
             
             switch result {
-            case .success(let success):
-                cell.configureWithData(movie: success.results[indexPath.row])
-            case .failure:
+            case .success(let todayMovie):
+                
+                self.trendingMovies = todayMovie.results
+                cell.configureWithData(movie: todayMovie.results[indexPath.row])
+                self.mainView.tableView.reloadData()
+
+            case .failure(let error):
+                print(error)
                 break
             }
         }
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let id = trendingMovies[indexPath.row].id
         let vc = MovieDetailViewController()
+        vc.id = id
         navigationController?.pushViewController(vc, animated: true)
     }
 }
