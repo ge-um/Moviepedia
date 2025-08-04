@@ -6,6 +6,7 @@
 //
 
 import SnapKit
+import Kingfisher
 import UIKit
 
 class SearchResultTableViewCell: BaseTableViewCell {
@@ -118,5 +119,19 @@ extension SearchResultTableViewCell: ViewProtocol {
             make.trailing.equalTo(safeAreaLayoutGuide).inset(12)
             make.bottom.equalTo(posterImageView.snp.bottom)
         }
+    }
+    
+    func configureData(movie: SearchMovie) {
+        let url = URL(string: MovieURL.image + movie.poster_path)
+        
+        posterImageView.kf.setImage(with: url, options:
+                                        [.processor(DownsamplingImageProcessor(size: posterImageView.bounds.size)),
+                                         .scaleFactor(UIScreen.main.scale),
+                                         .cacheOriginalImage,
+                                         .memoryCacheExpiration(.days(1))
+                                        ])
+        titleLabel.text = movie.title
+        releaseDateLabel.text = movie.release_date
+        genreLabel.text = String(movie.genre_ids[0])
     }
 }

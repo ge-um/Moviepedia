@@ -9,16 +9,24 @@ import SnapKit
 import UIKit
 
 class SearchResultView: BaseView {
+    
+    var movies: [SearchMovie] = []
+    
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
+        
         searchBar.searchBarStyle = .minimal
         searchBar.barStyle = .black
+        searchBar.placeholder = "영화를 검색해보세요."
         
+        searchBar.becomeFirstResponder()
+                
         return searchBar
     }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
+        
         tableView.backgroundColor = .clear
         
         tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
@@ -37,6 +45,7 @@ class SearchResultView: BaseView {
 }
 
 extension SearchResultView: ViewProtocol {
+    
     func configureSubview() {
         addSubview(searchBar)
         addSubview(tableView)
@@ -57,13 +66,15 @@ extension SearchResultView: ViewProtocol {
 }
 
 extension SearchResultView: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier) as! SearchResultTableViewCell
         
+        cell.configureData(movie: movies[indexPath.row])
         return cell
     }
     
@@ -71,3 +82,4 @@ extension SearchResultView: UITableViewDelegate, UITableViewDataSource {
         return 120
     }
 }
+
