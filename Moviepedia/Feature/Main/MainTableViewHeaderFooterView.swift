@@ -13,7 +13,7 @@ class MainTableViewHeaderFooterView: BaseTableViewHeaderFooterView {
     let title: UILabel = {
         let title = UILabel()
         
-        title.textColor = .white
+        title.textColor = .W
         title.font = .systemFont(ofSize: 19, weight: .black)
         
         return title

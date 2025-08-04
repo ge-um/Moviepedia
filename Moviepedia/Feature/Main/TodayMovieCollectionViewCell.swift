@@ -19,7 +19,6 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         return imageView
     }()
     
-    //TODO: - color white -> W로 바꾸기
     let movieTitle: UILabel = {
         let label  = UILabel()
         

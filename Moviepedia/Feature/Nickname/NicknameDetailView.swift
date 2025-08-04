@@ -19,7 +19,7 @@ class NicknameDetailView: BaseView {
     
     private let line: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .W
         
         return view
     }()

@@ -11,7 +11,7 @@ class SettingsTableViewCell: BaseTableViewCell {
     
     let label: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .W
         
         return label
     }()
