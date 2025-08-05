@@ -163,6 +163,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
                     
                 case .success(let response):
                     header.images = response.backdrops
+                    header.dateLabel = response.
                     header.collectionView.reloadData()
                 case .failure(let error):
                     print(error)

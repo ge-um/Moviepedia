@@ -28,12 +28,11 @@ class BackdropHeaderView: BaseTableViewHeaderView {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(BackdropCollectionViewCell.self, forCellWithReuseIdentifier: BackdropCollectionViewCell.identifier)
-
+        
         return collectionView
     }()
     
     let pageControl: UIPageControl = {
-        
         let pageControl = UIPageControl()
         
         pageControl.numberOfPages = 5
@@ -42,16 +41,72 @@ class BackdropHeaderView: BaseTableViewHeaderView {
         return pageControl
     }()
     
-    // TODO: - 장르 정보 취합해서 보여주기
-    let infoLabel: UILabel = {
+    let dateImageView: UIImageView = {
+        let imageView = UIImageView()
+        
+        imageView.image = UIImage(systemName: "calendar")
+        imageView.tintColor = .Gray2
+        
+        return imageView
+    }()
+    
+    let dateLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "2024어쩌구 8.0 액션스릴러"
-        label.textColor = .W
-        
-        label.textAlignment = .center
+        label.text = "2024-12-24"
+        label.textColor = .Gray2
+        label.font = .systemFont(ofSize: 13)
         
         return label
+    }()
+    
+    let rateImageView: UIImageView = {
+        let imageView = UIImageView()
+        
+        imageView.image = UIImage(systemName: "star.fill")
+        imageView.tintColor = .Gray2
+        
+        return imageView
+    }()
+    
+    let rateLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "8.0"
+        label.textColor = .Gray2
+        label.font = .systemFont(ofSize: 13)
+        
+        return label
+    }()
+    
+    let genreImageView: UIImageView = {
+        let imageView = UIImageView()
+        
+        imageView.image = UIImage(systemName: "film.fill")
+        imageView.tintColor = .Gray2
+        
+        return imageView
+    }()
+    
+    let genreLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "액션, 스릴러"
+        label.textColor = .Gray2
+        label.font = .systemFont(ofSize: 13)
+        
+        return label
+    }()
+    
+    let infoStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 4
+        stackView.distribution = .equalSpacing
+        
+        return stackView
     }()
     
     let title: UILabel = {
@@ -71,7 +126,7 @@ class BackdropHeaderView: BaseTableViewHeaderView {
         config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         button.configuration = config
-                
+        
         return button
     }()
     
@@ -96,7 +151,15 @@ extension BackdropHeaderView: ViewProtocol {
     func configureSubview() {
         addSubview(collectionView)
         addSubview(pageControl)
-        addSubview(infoLabel)
+        
+        infoStackView.addArrangedSubview(dateImageView)
+        infoStackView.addArrangedSubview(dateLabel)
+        infoStackView.addArrangedSubview(rateImageView)
+        infoStackView.addArrangedSubview(rateLabel)
+        infoStackView.addArrangedSubview(genreImageView)
+        infoStackView.addArrangedSubview(genreLabel)
+        
+        contentView.addSubview(infoStackView)
         
         stackView.addArrangedSubview(title)
         stackView.addArrangedSubview(button)
@@ -115,15 +178,15 @@ extension BackdropHeaderView: ViewProtocol {
             make.bottom.equalTo(collectionView.snp.bottom).inset(12)
         }
         
-        infoLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(contentView)
+        infoStackView.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(12)
-            
+            make.horizontalEdges.equalTo(contentView).inset(70)
+            make.height.equalTo(20)
         }
         
         stackView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(contentView).inset(12)
-            make.top.equalTo(infoLabel.snp.bottom).offset(12)
+            make.top.equalTo(infoStackView.snp.bottom).offset(12)
             make.bottom.equalTo(contentView)
         }
     }
