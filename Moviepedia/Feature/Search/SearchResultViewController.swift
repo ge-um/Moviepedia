@@ -7,7 +7,7 @@
 
 import UIKit
 
-// TODO: 검색 버그 있음. 
+// TODO: 검색 버그 있음.
 class SearchResultViewController: UIViewController {
     
     let searchResultView = SearchResultView()
@@ -59,6 +59,10 @@ extension SearchResultViewController: ViewControllerProtocol {
 extension SearchResultViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchData(keyword: searchBar.text!)
+        
+        let keyword = searchBar.text!
+        
+        AppSetting.keyword.append(keyword)
+        searchData(keyword: keyword)
     }
 }
