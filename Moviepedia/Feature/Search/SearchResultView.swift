@@ -37,6 +37,18 @@ class SearchResultView: BaseView {
         return tableView
     }()
     
+    lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "원하는 검색결과를 찾지 못했습니다."
+        label.textColor = .Gray2
+        label.font = .systemFont(ofSize: 13, weight: .bold)
+        label.textAlignment = .center
+        label.isHidden = true
+        
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubview()
@@ -48,6 +60,7 @@ extension SearchResultView: ViewProtocol {
     
     func configureSubview() {
         addSubview(searchBar)
+        addSubview(emptyLabel)
         addSubview(tableView)
     }
     
@@ -62,6 +75,11 @@ extension SearchResultView: ViewProtocol {
             make.top.equalTo(searchBar.snp.bottom)
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
+        
+        emptyLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(12)
+            make.top.equalTo(searchBar.snp.bottom).offset(160)
+        }
     }
 }
 
@@ -72,14 +90,13 @@ extension SearchResultView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier) as! SearchResultTableViewCell
         
         cell.configureData(movie: movies[indexPath.row])
         return cell
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
 }
-

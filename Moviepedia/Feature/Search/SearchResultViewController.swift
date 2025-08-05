@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: 검색 버그 있음. 
 class SearchResultViewController: UIViewController {
     
     let searchResultView = SearchResultView()
@@ -39,12 +40,19 @@ extension SearchResultViewController: ViewControllerProtocol {
                 
             case .success(let search):
                 self.searchResultView.movies = search.results
-                self.searchResultView.tableView.reloadData()
-                
+                self.reloadView()
+
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    func reloadView() {
+        if searchResultView.movies.isEmpty {
+            searchResultView.emptyLabel.isHidden = false
+        }
+        searchResultView.tableView.reloadData()
     }
 }
 
