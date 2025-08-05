@@ -156,7 +156,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let movie = trendingMovies[indexPath.row]
         
         let vc = MovieDetailViewController()
-        vc.movie = movie
+        vc.title = movie.title
         vc.id = movie.id
         
         navigationController?.pushViewController(vc, animated: true)

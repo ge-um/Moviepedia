@@ -14,9 +14,11 @@ class SearchResultViewController: UIViewController {
     
     override func loadView() {
         let newView = searchResultView
-        newView.navigationAction = { id in
+        newView.navigationAction = { (arg0) in
+            let (id, title) = arg0
             let vc = MovieDetailViewController()
             vc.id = id
+            vc.title = title
             
             self.navigationController?.pushViewController(vc, animated: true)
         }

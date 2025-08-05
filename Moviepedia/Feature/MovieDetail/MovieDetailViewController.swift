@@ -11,13 +11,14 @@ class MovieDetailViewController: UIViewController {
     
     let movieDetailView = MovieDetailView()
     
-    // TODO: 중복값 제거하고 id만 사용하기
+    // TODO: 중복값 제거하기
     let sectionTitle = ["Synopsis", "Cast"]
     var movie: Movie?
     var cast: [Cast]?
     
     var id: Int?
     var search: [SearchMovie]?
+    var movieTitle: String?
     
     lazy var isLiked = AppSetting.likeMovies.contains(movie?.id ?? -1)
     var reloadAction: (() -> Void)?
@@ -63,7 +64,7 @@ class MovieDetailViewController: UIViewController {
 extension MovieDetailViewController: ViewControllerProtocol {
     
     func configureNavigation() {
-        navigationItem.title = movie?.title
+        navigationItem.title = title
         
         let heartImage = isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         
@@ -97,7 +98,7 @@ extension MovieDetailViewController: ViewControllerProtocol {
             }
         }
         
-        NetworkManager.shared.request(url: MovieURL.search(keyword: movie!.title)) { (result: Result<Search, Error>) in
+        NetworkManager.shared.request(url: MovieURL.search(keyword: title!)) { (result: Result<Search, Error>) in
             switch result {
             case .success(let search):
                 self.search = search.results
