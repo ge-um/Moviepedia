@@ -14,6 +14,34 @@ class MovieDetailViewController: UIViewController {
     let sectionTitle = ["Synopsis", "Cast"]
     var movie: Movie?
     var cast: [Cast]?
+    
+    lazy var isLiked = AppSetting.likeMovies.contains(movie?.id ?? -1)
+    var reloadAction: (() -> Void)?
+    
+    lazy var likeButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(systemName: "heart")
+        config.baseBackgroundColor = .clear
+        
+        button.configuration = config
+        
+        button.configurationUpdateHandler = {
+            button in
+            var config = button.configuration
+            
+            config?.image = button.isSelected ?
+            UIImage(systemName: "heart.fill") :
+            UIImage(systemName: "heart")
+            
+            button.configuration = config
+        }
+        
+        button.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        
+        return button
+    }()
         
     override func loadView() {
         view = movieDetailView
@@ -33,8 +61,15 @@ extension MovieDetailViewController: ViewControllerProtocol {
     func configureNavigation() {
         navigationItem.title = movie?.title
         
-        // TODO: - 좋아요 데이터 userDefaults에 저장후 불러오기
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"))
+        let heartImage = isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        
+        let rightButton = UIBarButtonItem(
+            image: heartImage,
+            style: .plain,
+            target: self,
+            action: #selector(likeButtonTapped)
+        )
+        navigationItem.rightBarButtonItem = rightButton
     }
     
     func configureTableView() {
@@ -57,6 +92,25 @@ extension MovieDetailViewController: ViewControllerProtocol {
                 print(error)
             }
         }
+    }
+
+    @objc func likeButtonTapped() {
+        isLiked.toggle()
+        
+        let newImage = isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        navigationItem.rightBarButtonItem?.image = newImage
+        
+        guard let id = movie?.id else { return }
+        
+        if isLiked {
+            if !AppSetting.likeMovies.contains(id) {
+                AppSetting.likeMovies.append(id)
+            }
+        } else {
+            AppSetting.likeMovies.removeAll { $0 == id }
+        }
+        
+        reloadAction?()
     }
 }
 
@@ -86,7 +140,6 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             cell.configureData(cast: cast)
             return cell
-            
         }
     }
     
@@ -132,4 +185,3 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
         return section == 0 ? 300 : UITableView.automaticDimension
     }
 }
-

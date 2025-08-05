@@ -29,6 +29,7 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
+    // TODO: - likeButton 빼기
     lazy var likeButton: UIButton = {
         let button = UIButton()
         

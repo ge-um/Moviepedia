@@ -9,7 +9,7 @@ import UIKit
 
 class TodayMovieTableViewCell: BaseTableViewCell {
     
-    let collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
         layout.scrollDirection = .horizontal
@@ -29,7 +29,14 @@ class TodayMovieTableViewCell: BaseTableViewCell {
         
         configureSubview()
         configureConstraint()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(likeButtonTapped), name: NSNotification.Name("LikeMovieChanged"), object: nil)
     }
+    
+    @objc func likeButtonTapped() {
+        collectionView.reloadData()
+    }
+    
 }
 
 extension TodayMovieTableViewCell: ViewProtocol {
