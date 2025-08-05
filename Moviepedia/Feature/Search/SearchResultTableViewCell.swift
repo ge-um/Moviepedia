@@ -122,7 +122,9 @@ extension SearchResultTableViewCell: ViewProtocol {
     }
     
     func configureData(movie: SearchMovie) {
-        let url = URL(string: MovieURL.image + movie.poster_path)
+        
+        guard let path = movie.poster_path else { return }
+        let url = URL(string: MovieURL.image + path)
         
         posterImageView.kf.setImage(with: url, options:
                                         [.processor(DownsamplingImageProcessor(size: posterImageView.bounds.size)),

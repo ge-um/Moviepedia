@@ -12,6 +12,6 @@ struct Search: Decodable {
 struct SearchMovie: Decodable {
     let title: String
     let genre_ids: [Int]
-    let poster_path: String
+    let poster_path: String?
     let release_date: String
 }
