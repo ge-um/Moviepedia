@@ -157,6 +157,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         let vc = MovieDetailViewController()
         vc.movie = movie
+        vc.id = movie.id
         
         navigationController?.pushViewController(vc, animated: true)
     }

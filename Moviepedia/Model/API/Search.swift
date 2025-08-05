@@ -15,4 +15,5 @@ struct SearchMovie: Decodable {
     let genre_ids: [Int]
     let poster_path: String?
     let release_date: String
+    let vote_average: Double
 }

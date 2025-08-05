@@ -180,7 +180,7 @@ extension BackdropHeaderView: ViewProtocol {
         
         infoStackView.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(12)
-            make.horizontalEdges.equalTo(contentView).inset(70)
+            make.horizontalEdges.equalTo(contentView).inset(64)
             make.height.equalTo(20)
         }
         

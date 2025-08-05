@@ -17,6 +17,7 @@ class MovieDetailViewController: UIViewController {
     var cast: [Cast]?
     
     var id: Int?
+    var search: [SearchMovie]?
     
     lazy var isLiked = AppSetting.likeMovies.contains(movie?.id ?? -1)
     var reloadAction: (() -> Void)?
@@ -95,6 +96,16 @@ extension MovieDetailViewController: ViewControllerProtocol {
                 print(error)
             }
         }
+        
+        NetworkManager.shared.request(url: MovieURL.search(keyword: movie!.title)) { (result: Result<Search, Error>) in
+            switch result {
+            case .success(let search):
+                self.search = search.results
+                self.movieDetailView.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     @objc func likeButtonTapped() {
@@ -159,6 +170,11 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.configureStyle(buttonTitle: "More", buttonIsHidden: false)
             header.configureWithData(sectionTitle: sectionTitle[section])
             
+            guard let movie = search?[0] else { return UIView() }
+            header.dateLabel.text = movie.release_date
+            header.rateLabel.text = "\(movie.vote_average)"
+            header.genreLabel.text = movie.genre_ids.prefix(2).map { Genre(rawValue: $0)!.name }.joined(separator: ", ")
+            
             // TODO: - 강제 언래핑 제거하기
             NetworkManager.shared.request(url: MovieURL.backdrop(id: id!)) { (result: Result<MovieImage, Error>) in
                                 
@@ -166,7 +182,6 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
                     
                 case .success(let response):
                     header.images = response.backdrops
-//                    header.dateLabel = response.
                     header.collectionView.reloadData()
                 case .failure(let error):
                     print(error)
