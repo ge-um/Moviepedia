@@ -182,7 +182,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
                 switch result {
                     
                 case .success(let response):
-                    header.images = response.backdrops
+                    header.images = response.backdrops.prefix(5).map { $0 }
                     header.collectionView.reloadData()
                 case .failure(let error):
                     print(error)
