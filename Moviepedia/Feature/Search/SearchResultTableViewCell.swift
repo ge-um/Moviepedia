@@ -22,8 +22,7 @@ class SearchResultTableViewCell: BaseTableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "정말정ㅁ라긴제목정말정ㅁ라긴제목정말정ㅁ라긴제목정말정ㅁ라긴제목정말정ㅁ라긴제목정말정ㅁ라긴제목정말정ㅁ라긴제목"
+
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.numberOfLines = 2
         label.textColor = .W
@@ -36,17 +35,36 @@ class SearchResultTableViewCell: BaseTableViewCell {
         
         label.font = .systemFont(ofSize: 13, weight: .light)
         
-        label.text = "12341234"
         label.textColor = .W
         
         return label
     }()
     
-    let genreLabel: UILabel = {
+    let genreStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        
+        return stackView
+    }()
+    
+    let genreLabel1: UILabel = {
         let label = UILabel()
         
-        label.text = "꺆꺄꺄꺆ㄲ"
-        label.textColor = .Gray2
+        label.textColor = .W
+        label.font = .systemFont(ofSize: 13)
+        label.backgroundColor = .Gray2
+        
+        return label
+    }()
+    
+    let genreLabel2: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .W
+        label.backgroundColor = .Gray2
+        label.font = .systemFont(ofSize: 13)
         
         return label
     }()
@@ -88,7 +106,11 @@ extension SearchResultTableViewCell: ViewProtocol {
         addSubview(likeButton)
         addSubview(titleLabel)
         addSubview(releaseDateLabel)
-        addSubview(genreLabel)
+        
+        genreStackView.addArrangedSubview(genreLabel1)
+        genreStackView.addArrangedSubview(genreLabel2)
+
+        addSubview(genreStackView)
     }
     
     func configureConstraint() {
@@ -109,13 +131,13 @@ extension SearchResultTableViewCell: ViewProtocol {
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
         }
         
-        genreLabel.snp.makeConstraints { make in
+        genreStackView.snp.makeConstraints { make in
             make.leading.equalTo(posterImageView.snp.trailing).offset(12)
             make.bottom.equalTo(posterImageView.snp.bottom)
         }
         
         likeButton.snp.makeConstraints { make in
-            make.leading.equalTo(genreLabel.snp.trailing).offset(12)
+            make.leading.equalTo(genreStackView.snp.trailing).offset(12)
             make.trailing.equalTo(safeAreaLayoutGuide).inset(12)
             make.bottom.equalTo(posterImageView.snp.bottom)
         }
@@ -134,9 +156,21 @@ extension SearchResultTableViewCell: ViewProtocol {
                                         ])
         titleLabel.text = movie.title
         releaseDateLabel.text = movie.release_date
-        // TODO: 장르에 ""가 있음
-        genreLabel.text = movie.genre_ids.map { String($0) }.joined()
         
+        
+        let genre = movie.genre_ids
+        
+        if !genre.isEmpty {
+            if genre.count == 1 {
+                genreLabel1.text = Genre(rawValue: genre[0])!.name
+                return
+            }
+            
+            if genre.count >= 2 {
+                genreLabel2.text = Genre(rawValue: genre[1])!.name
+            }
+        }
+
         likeButton.isSelected = AppSetting.likeMovies.contains(movie.id)
     }
 }
