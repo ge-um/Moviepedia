@@ -11,6 +11,7 @@ import UIKit
 class SearchResultView: BaseView {
     
     var movies: [SearchMovie] = []
+    var navigationAction: ((Int) -> Void)?
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -98,5 +99,13 @@ extension SearchResultView: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationAction?(movies[indexPath.row].id)
+//        let vc = MovieDetailViewController()
+//        vc.id = movies[indexPath.row].id
+//        
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -13,6 +13,13 @@ class SearchResultViewController: UIViewController {
     let searchResultView = SearchResultView()
     
     override func loadView() {
+        let newView = searchResultView
+        newView.navigationAction = { id in
+            let vc = MovieDetailViewController()
+            vc.id = id
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         view = searchResultView
     }
     

@@ -11,9 +11,12 @@ class MovieDetailViewController: UIViewController {
     
     let movieDetailView = MovieDetailView()
     
+    // TODO: 중복값 제거하고 id만 사용하기
     let sectionTitle = ["Synopsis", "Cast"]
     var movie: Movie?
     var cast: [Cast]?
+    
+    var id: Int?
     
     lazy var isLiked = AppSetting.likeMovies.contains(movie?.id ?? -1)
     var reloadAction: (() -> Void)?
@@ -83,7 +86,7 @@ extension MovieDetailViewController: ViewControllerProtocol {
     }
     
     func configureData() {
-        NetworkManager.shared.request(url: MovieURL.credit(id: movie!.id)) { (result: Result<Credit, Error>) in
+        NetworkManager.shared.request(url: MovieURL.credit(id: id!)) { (result: Result<Credit, Error>) in
             switch result {
             case .success(let credit):
                 self.cast = credit.cast
@@ -100,7 +103,7 @@ extension MovieDetailViewController: ViewControllerProtocol {
         let newImage = isLiked ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         navigationItem.rightBarButtonItem?.image = newImage
         
-        guard let id = movie?.id else { return }
+        guard let id = id else { return }
         
         if isLiked {
             if !AppSetting.likeMovies.contains(id) {
@@ -157,13 +160,13 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.configureWithData(sectionTitle: sectionTitle[section])
             
             // TODO: - 강제 언래핑 제거하기
-            NetworkManager.shared.request(url: MovieURL.backdrop(id: movie!.id)) { (result: Result<MovieImage, Error>) in
+            NetworkManager.shared.request(url: MovieURL.backdrop(id: id!)) { (result: Result<MovieImage, Error>) in
                                 
                 switch result {
                     
                 case .success(let response):
                     header.images = response.backdrops
-                    header.dateLabel = response.
+//                    header.dateLabel = response.
                     header.collectionView.reloadData()
                 case .failure(let error):
                     print(error)
