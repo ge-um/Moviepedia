@@ -10,6 +10,7 @@ struct Search: Decodable {
 }
 
 struct SearchMovie: Decodable {
+    let id: Int
     let title: String
     let genre_ids: [Int]
     let poster_path: String?

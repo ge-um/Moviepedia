@@ -136,5 +136,7 @@ extension SearchResultTableViewCell: ViewProtocol {
         releaseDateLabel.text = movie.release_date
         // TODO: 장르에 ""가 있음
         genreLabel.text = movie.genre_ids.map { String($0) }.joined()
+        
+        likeButton.isSelected = AppSetting.likeMovies.contains(movie.id)
     }
 }
