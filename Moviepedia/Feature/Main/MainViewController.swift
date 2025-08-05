@@ -107,6 +107,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         header.title.text = sectionTitle[section]
         
+        if section == 0 {
+            header.configureStyle(buttonTitle: "전체 삭제", buttonIsHidden: false)
+        }
+
         return header
     }
     

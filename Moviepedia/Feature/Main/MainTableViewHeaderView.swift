@@ -19,7 +19,7 @@ class MainTableViewHeaderView: BaseTableViewHeaderView {
         return title
     }()
     
-    let button: UIButton = {
+    lazy var button: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
@@ -27,6 +27,8 @@ class MainTableViewHeaderView: BaseTableViewHeaderView {
         config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         button.configuration = config
+        
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
                 
         return button
     }()
@@ -44,6 +46,10 @@ class MainTableViewHeaderView: BaseTableViewHeaderView {
         super.init(reuseIdentifier: reuseIdentifier)
         configureSubview()
         configureConstraint()
+    }
+    
+    @objc func deleteButtonTapped() {
+        AppSetting.keyword.removeAll()
     }
 }
 
