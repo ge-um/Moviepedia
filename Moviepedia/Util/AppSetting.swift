@@ -16,4 +16,7 @@ enum AppSetting {
     
     // MARK: - Keyword
     @UserDefault(key: "keyword", defaultValue: [], notificationName: NSNotification.Name("keywordSearched")) static var keyword
+    
+    // MARK: - Like
+    @UserDefault(key: "likeMovies", defaultValue: [Int](), notificationName: NSNotification.Name("LikeMovieChanged")) static var likeMovies
 }

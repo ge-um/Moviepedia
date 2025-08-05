@@ -129,14 +129,19 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     // TODO: cell에서 업데이트 안하도록 분리
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
-        
+                
         NetworkManager.shared.request(url: MovieURL.trending) { (result: Result<TrendingMovie, Error>) in
             
             switch result {
             case .success(let todayMovie):
                 
                 self.trendingMovies = todayMovie.results
-                cell.configureWithData(movie: todayMovie.results[indexPath.row])
+                
+                let movie = todayMovie.results[indexPath.row]
+                
+                cell.id = movie.id
+                cell.configureWithData(movie: movie)
+                
                 self.mainView.tableView.reloadData()
 
             case .failure(let error):

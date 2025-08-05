@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 
 class TodayMovieCollectionViewCell: BaseCollectionViewCell {
+    var id: Int?
     
     let moviePosterView: UIImageView = {
         let imageView = UIImageView()
@@ -28,7 +29,7 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
-    let likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
@@ -47,6 +48,9 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
             
             button.configuration = config
         }
+        
+        button.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        
         return button
     }()
     
@@ -77,16 +81,20 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
         
         configureSubview()
         configureConstraint()
-        bindAction()
     }
     
-    func bindAction() {
-        likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
-    }
-    
+    // TODO: - Userdefaults 함수로 분리?
     @objc func likeButtonTapped() {
         print(#function)
         likeButton.isSelected.toggle()
+        
+        if likeButton.isSelected {
+            if !AppSetting.likeMovies.contains(id!) {
+                AppSetting.likeMovies.append(id!)
+            }
+        } else {
+            AppSetting.likeMovies.removeAll { $0 == id }
+        }
     }
 }
 
@@ -133,5 +141,6 @@ extension TodayMovieCollectionViewCell: ViewProtocol {
         }
         movieTitle.text = movie.title
         movieOverview.text = movie.overview
+        likeButton.isSelected = AppSetting.likeMovies.contains(id!)
     }
 }
