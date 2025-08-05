@@ -10,6 +10,8 @@ import UIKit
 
 class KeywordCollectionViewCell: BaseCollectionViewCell {
     
+    var deleteAction: (() -> Void)?
+    
     let label: UILabel = {
         let label = UILabel()
         
@@ -21,13 +23,17 @@ class KeywordCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
-    let imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         
         imageView.image = UIImage(systemName: "xmark")
         imageView.tintColor = .B
         imageView.contentMode = .scaleAspectFill
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(deleteKeyword))
+        imageView.addGestureRecognizer(tap)
+        imageView.isUserInteractionEnabled = true
+       
         return imageView
     }()
     
@@ -49,12 +55,15 @@ class KeywordCollectionViewCell: BaseCollectionViewCell {
     func configureData(text: String) {
         label.text = text
     }
+    
+    @objc func deleteKeyword(_ sender: UITapGestureRecognizer) {
+        deleteAction?()
+    }
 }
 
 extension KeywordCollectionViewCell: ViewProtocol {
     
     func configureSubview() {
-        
         containerView.addSubview(label)
         containerView.addSubview(imageView)
         
@@ -70,7 +79,7 @@ extension KeywordCollectionViewCell: ViewProtocol {
         imageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(label.snp.trailing).offset(8)
-            make.size.equalTo(10)
+            make.size.equalTo(12)
         }
         
         containerView.snp.makeConstraints { make in

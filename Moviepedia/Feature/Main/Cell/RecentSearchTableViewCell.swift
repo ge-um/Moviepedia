@@ -84,6 +84,10 @@ extension RecentSearchTableViewCell: UICollectionViewDelegate, UICollectionViewD
         
         cell.configureData(text: AppSetting.keyword[indexPath.row] as! String)
         
+        cell.deleteAction = {
+            AppSetting.keyword.remove(at: indexPath.row)
+        }
+        
         return cell
     }
 }
