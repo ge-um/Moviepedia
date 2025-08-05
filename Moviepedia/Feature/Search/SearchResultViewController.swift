@@ -51,8 +51,10 @@ extension SearchResultViewController: ViewControllerProtocol {
     func reloadView() {
         if searchResultView.movies.isEmpty {
             searchResultView.emptyLabel.isHidden = false
+        } else {
+            searchResultView.emptyLabel.isHidden = true
+            searchResultView.tableView.reloadData()
         }
-        searchResultView.tableView.reloadData()
     }
 }
 

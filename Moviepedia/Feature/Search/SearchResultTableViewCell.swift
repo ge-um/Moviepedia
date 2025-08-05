@@ -134,6 +134,7 @@ extension SearchResultTableViewCell: ViewProtocol {
                                         ])
         titleLabel.text = movie.title
         releaseDateLabel.text = movie.release_date
-        genreLabel.text = String(movie.genre_ids[0])
+        // TODO: 장르에 ""가 있음
+        genreLabel.text = movie.genre_ids.map { String($0) }.joined()
     }
 }
