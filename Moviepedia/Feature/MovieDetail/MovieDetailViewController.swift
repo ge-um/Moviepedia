@@ -13,14 +13,14 @@ class MovieDetailViewController: UIViewController {
     
     // TODO: 중복값 제거하기
     let sectionTitle = ["Synopsis", "Cast"]
-    var movie: TrendingMovie?
+    var trendingMovie: TrendingMovie?
     var cast: [Cast]?
     
     var id: Int?
-    var search: [SearchMovie]?
+    var searchMovie: [SearchMovie]?
     var movieTitle: String?
     
-    lazy var isLiked = AppSetting.likeMovies.contains(movie?.id ?? -1)
+    lazy var isLiked = AppSetting.likeMovies.contains(id!)
     
     lazy var likeButton = {
         let button = UIButton()
@@ -100,7 +100,7 @@ extension MovieDetailViewController: ViewControllerProtocol {
         NetworkManager.shared.request(url: MovieURL.search(keyword: title!)) { (result: Result<SearchMovieResponse, Error>) in
             switch result {
             case .success(let search):
-                self.search = search.results
+                self.searchMovie = search.results
                 self.movieDetailView.tableView.reloadData()
             case .failure(let error):
                 print(error)
@@ -152,7 +152,11 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier) as! SynopsisTableViewCell
             
-            cell.label.text = movie?.overview
+            if let overview = trendingMovie?.overview {
+                cell.label.text = overview
+            } else if let overview = searchMovie?[0].overview {
+                cell.label.text = overview
+            }
             
             return cell
         } else {
@@ -179,7 +183,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.configureWithData(sectionTitle: sectionTitle[section])
             header.moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
             
-            guard let movie = search?[0] else { return UIView() }
+            guard let movie = searchMovie?[0] else { return UIView() }
             header.dateLabel.text = movie.release_date
             header.rateLabel.text = "\(movie.vote_average)"
             header.genreLabel.text = movie.genre_ids.prefix(2).map { Genre(rawValue: $0)!.name }.joined(separator: ", ")

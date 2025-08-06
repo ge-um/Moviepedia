@@ -16,4 +16,5 @@ struct SearchMovie: Decodable {
     let poster_path: String?
     let release_date: String
     let vote_average: Double
+    let overview: String
 }
