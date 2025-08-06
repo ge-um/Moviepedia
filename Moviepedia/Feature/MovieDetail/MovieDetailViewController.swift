@@ -21,7 +21,6 @@ class MovieDetailViewController: UIViewController {
     var movieTitle: String?
     
     lazy var isLiked = AppSetting.likeMovies.contains(movie?.id ?? -1)
-    var reloadAction: (() -> Void)?
     
     lazy var likeButton = {
         let button = UIButton()
@@ -124,8 +123,6 @@ extension MovieDetailViewController: ViewControllerProtocol {
         } else {
             AppSetting.likeMovies.removeAll { $0 == id }
         }
-        
-        reloadAction?()
     }
     
     @objc func moreButtonTapped(sender: UIButton) {
