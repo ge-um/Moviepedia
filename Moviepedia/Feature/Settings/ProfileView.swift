@@ -58,7 +58,7 @@ class ProfileView: BaseView {
         var config = UIButton.Configuration.filled()
         
         let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 16, weight: .bold)])
-        config.attributedTitle = AttributedString("0개의 무비박스 보관중", attributes: container)
+        config.attributedTitle = AttributedString("\(AppSetting.likeMovies.count)개의 무비박스 보관중", attributes: container)
         
         config.baseBackgroundColor = .Green2
         config.baseForegroundColor = .W
