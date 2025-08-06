@@ -11,13 +11,13 @@ class MovieDetailViewController: UIViewController {
     
     let movieDetailView = MovieDetailView()
     
-    // TODO: 중복값 제거하기
-    let sectionTitle = ["Synopsis", "Cast"]
-    var trendingMovie: TrendingMovie?
-    var cast: [Cast]?
-    
     var id: Int?
+
+    let sectionTitle = ["Synopsis", "Cast"]
+    
+    var trendingMovie: TrendingMovie?
     var searchMovie: SearchMovie?
+    var cast: [Cast]?
     
     lazy var isLiked = AppSetting.likeMovies.contains(id!)
     
@@ -78,11 +78,6 @@ extension MovieDetailViewController: ViewControllerProtocol {
     func configureTableView() {
         movieDetailView.tableView.dataSource = self
         movieDetailView.tableView.delegate = self
-        
-        movieDetailView.tableView.register(SynopsisTableViewCell.self, forCellReuseIdentifier: SynopsisTableViewCell.identifier)
-        movieDetailView.tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
-        
-        movieDetailView.tableView.register(BackdropHeaderView.self, forHeaderFooterViewReuseIdentifier:  BackdropHeaderView.identifier)
     }
     
     func configureData() {
