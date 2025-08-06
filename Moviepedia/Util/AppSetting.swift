@@ -10,7 +10,7 @@ import Foundation
 enum AppSetting {
     // MARK: - User
     @UserDefault(key: "isLoggedIn", defaultValue: false) static var isLoggedIn
-    @UserDefault(key: "nickname", defaultValue: "", notificationName: NSNotification.Name("nicknameChanged")) static var nickname
+    @UserDefault(key: "nickname", defaultValue: "", notificationName: AppNotification.nicknameChanged.name) static var nickname
     @UserDefault(key: "signUpDate", defaultValue: Date()) static var signUpDate
     
     // MARK: - Keyword

@@ -53,7 +53,7 @@ extension MainViewController: ViewControllerProtocol {
     func bindAction() {
         mainView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: NSNotification.Name("nicknameChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: AppNotification.nicknameChanged.name, object: nil)
     }
 
     @objc func editButtonTapped() {

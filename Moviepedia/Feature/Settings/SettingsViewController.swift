@@ -40,7 +40,7 @@ extension SettingsViewController: ViewControllerProtocol {
     func bindAction() {
         settingsView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: NSNotification.Name("nicknameChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: AppNotification.nicknameChanged.name, object: nil)
     }
     
     @objc func editButtonTapped() {
@@ -82,9 +82,4 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showQuitAlert()
     }
-}
-
-@available(iOS 17.0, *)
-#Preview {
-    SettingsViewController()
 }
