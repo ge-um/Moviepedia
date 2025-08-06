@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: - 로그인 상태랑 닉네임이랑 따로 있는게 맞을까?
 enum AppSetting {
     // MARK: - User
     @UserDefault(key: "isLoggedIn", defaultValue: false) static var isLoggedIn
@@ -18,5 +17,15 @@ enum AppSetting {
     @UserDefault(key: "keyword", defaultValue: [], notificationName: NSNotification.Name("keywordSearched")) static var keyword
     
     // MARK: - Like
-    @UserDefault(key: "likeMovies", defaultValue: [Int](), notificationName: NSNotification.Name("LikeMovieChanged")) static var likeMovies
+    @UserDefault(key: "likeMovies", defaultValue: [Int](), notificationName: AppNotification.likeMovieChanged.name) static var likeMovies
+}
+
+enum AppNotification: String {
+    case nicknameChanged
+    case keywordSearched
+    case likeMovieChanged
+    
+    var name: NSNotification.Name {
+        return NSNotification.Name(self.rawValue)
+    }
 }

@@ -23,8 +23,6 @@ class MainViewController: UIViewController {
         configureNavigation()
         configureTableView()
         bindAction()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("LikeMovieChanged"), object: nil)
     }
 }
 

@@ -28,7 +28,7 @@ struct UserDefault<T> {
     }
     
     // TODO: - 기본값 줘도 될지 생각해보기
-    init(key: String, defaultValue: T, notificationName: NSNotification.Name? = Notification.Name("")) {
+    init(key: String, defaultValue: T, notificationName: NSNotification.Name? = nil) {
         self.key = key
         self.defaultValue = defaultValue
         self.notificationName = notificationName
