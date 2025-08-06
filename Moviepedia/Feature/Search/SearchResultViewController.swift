@@ -90,6 +90,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         return 120
     }
     
+    // TODO: - 눌렀을 때 하트 동작하지 않음. 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = movies[indexPath.row]
         

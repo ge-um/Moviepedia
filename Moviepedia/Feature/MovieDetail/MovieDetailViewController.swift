@@ -18,7 +18,6 @@ class MovieDetailViewController: UIViewController {
     
     var id: Int?
     var searchMovie: SearchMovie?
-    var movieTitle: String?
     
     lazy var isLiked = AppSetting.likeMovies.contains(id!)
     
@@ -173,10 +172,16 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.configureWithData(sectionTitle: sectionTitle[section])
             header.moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
             
-            guard let movie = searchMovie else { return UIView() }
-            header.dateLabel.text = movie.release_date
-            header.rateLabel.text = "\(movie.vote_average)"
-            header.genreLabel.text = movie.genre_ids.prefix(2).map { Genre(rawValue: $0)!.name }.joined(separator: ", ")
+            if let movie = searchMovie {
+                header.dateLabel.text = movie.release_date
+                header.rateLabel.text = "\(movie.vote_average)"
+                header.genreLabel.text = movie.genre_ids.prefix(2).map { Genre(rawValue: $0)!.name }.joined(separator: ", ")
+            } else if let movie = trendingMovie {
+                header.dateLabel.text = movie.release_date
+                header.rateLabel.text = "\(movie.vote_average)"
+                header.genreLabel.text = movie.genre_ids.prefix(2).map { Genre(rawValue: $0)!.name }.joined(separator: ", ")
+            }
+
             
             // TODO: - 강제 언래핑 제거하기
             NetworkManager.shared.request(url: MovieURL.backdrop(id: id!)) { (result: Result<BackdropResponse, Error>) in
