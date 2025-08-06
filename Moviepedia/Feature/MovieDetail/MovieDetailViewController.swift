@@ -9,8 +9,6 @@ import UIKit
 
 class MovieDetailViewController: UIViewController {
     
-    let movieDetailView = MovieDetailView()
-    
     var id: Int?
 
     let sectionTitle = ["Synopsis", "Cast"]
@@ -45,14 +43,30 @@ class MovieDetailViewController: UIViewController {
         
         return button
     }()
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
         
-    override func loadView() {
-        view = movieDetailView
-    }
+        tableView.backgroundColor = .clear
+        
+        tableView.register(CastTableViewCell.self, forCellReuseIdentifier: CastTableViewCell.identifier)
+        
+        tableView.register(SynopsisTableViewCell.self, forCellReuseIdentifier: SynopsisTableViewCell.identifier)
+        
+        tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
+        
+        tableView.register(BackdropHeaderView.self, forHeaderFooterViewReuseIdentifier:  BackdropHeaderView.identifier)
+        
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .B
+        
+        configureSubview()
+        configureConstraint()
         configureNavigation()
         configureTableView()
         configureData()
@@ -60,6 +74,16 @@ class MovieDetailViewController: UIViewController {
 }
 
 extension MovieDetailViewController: ViewControllerProtocol {
+    
+    func configureSubview() {
+        view.addSubview(tableView)
+    }
+    
+    func configureConstraint() {
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
     
     func configureNavigation() {
         navigationItem.title = title
@@ -76,8 +100,8 @@ extension MovieDetailViewController: ViewControllerProtocol {
     }
     
     func configureTableView() {
-        movieDetailView.tableView.dataSource = self
-        movieDetailView.tableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     func configureData() {
@@ -85,7 +109,7 @@ extension MovieDetailViewController: ViewControllerProtocol {
             switch result {
             case .success(let credit):
                 self.cast = credit.cast
-                self.movieDetailView.tableView.reloadData()
+                self.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
@@ -112,11 +136,11 @@ extension MovieDetailViewController: ViewControllerProtocol {
     @objc func moreButtonTapped(sender: UIButton) {
         print(#function)
         let indexPath = IndexPath(row: 0, section: 0)
-        let cell = movieDetailView.tableView.cellForRow(at: indexPath) as? SynopsisTableViewCell
+        let cell = tableView.cellForRow(at: indexPath) as? SynopsisTableViewCell
         
         sender.isSelected.toggle()
         cell?.label.numberOfLines = sender.isSelected ? 0 : 3
-        movieDetailView.tableView.reloadData()
+        tableView.reloadData()
     }
 }
 
