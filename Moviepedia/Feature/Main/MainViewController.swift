@@ -169,7 +169,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let movie = trendingMovies[indexPath.row]
         
         let vc = MovieDetailViewController()
-        vc.title = movie.title
+        
         vc.id = movie.id
         vc.trendingMovie = movie
         

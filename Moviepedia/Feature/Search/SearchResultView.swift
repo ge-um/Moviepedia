@@ -10,9 +10,6 @@ import UIKit
 
 class SearchResultView: BaseView {
     
-    var movies: [SearchMovie] = []
-    var navigationAction: (((Int, String)) -> Void)?
-    
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         
@@ -31,9 +28,6 @@ class SearchResultView: BaseView {
         tableView.backgroundColor = .clear
         
         tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
-        
-        tableView.delegate = self
-        tableView.dataSource = self
         
         return tableView
     }()
@@ -81,28 +75,5 @@ extension SearchResultView: ViewProtocol {
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(12)
             make.top.equalTo(searchBar.snp.bottom).offset(160)
         }
-    }
-}
-
-extension SearchResultView: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier) as! SearchResultTableViewCell
-        
-        cell.configureData(movie: movies[indexPath.row])
-        return cell
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movie = movies[indexPath.row]
-        navigationAction?((movie.id, movie.title))
     }
 }

@@ -12,16 +12,9 @@ class SearchResultViewController: UIViewController {
     
     let searchResultView = SearchResultView()
     
+    var movies: [SearchMovie] = []
+    
     override func loadView() {
-        let newView = searchResultView
-        newView.navigationAction = { (arg0) in
-            let (id, title) = arg0
-            let vc = MovieDetailViewController()
-            vc.id = id
-            vc.title = title
-            
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
         view = searchResultView
     }
     
@@ -41,6 +34,8 @@ extension SearchResultViewController: ViewControllerProtocol {
     
     func bindAction() {
         searchResultView.searchBar.delegate = self
+        searchResultView.tableView.delegate = self
+        searchResultView.tableView.dataSource = self
     }
     
     func searchData(keyword: String) {
@@ -48,7 +43,7 @@ extension SearchResultViewController: ViewControllerProtocol {
             switch result {
                 
             case .success(let search):
-                self.searchResultView.movies = search.results
+                self.movies = search.results
                 self.reloadView()
 
             case .failure(let error):
@@ -58,7 +53,7 @@ extension SearchResultViewController: ViewControllerProtocol {
     }
     
     func reloadView() {
-        if searchResultView.movies.isEmpty {
+        if movies.isEmpty {
             searchResultView.emptyLabel.isHidden = false
         } else {
             searchResultView.emptyLabel.isHidden = true
@@ -75,5 +70,33 @@ extension SearchResultViewController: UISearchBarDelegate {
         
         AppSetting.keyword.append(keyword)
         searchData(keyword: keyword)
+    }
+}
+
+extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier) as! SearchResultTableViewCell
+        
+        cell.configureData(movie: movies[indexPath.row])
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        
+        let vc = MovieDetailViewController()
+        vc.searchMovie = movie
+        vc.id = movie.id
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

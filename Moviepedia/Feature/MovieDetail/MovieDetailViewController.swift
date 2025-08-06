@@ -17,7 +17,7 @@ class MovieDetailViewController: UIViewController {
     var cast: [Cast]?
     
     var id: Int?
-    var searchMovie: [SearchMovie]?
+    var searchMovie: SearchMovie?
     var movieTitle: String?
     
     lazy var isLiked = AppSetting.likeMovies.contains(id!)
@@ -96,16 +96,6 @@ extension MovieDetailViewController: ViewControllerProtocol {
                 print(error)
             }
         }
-        
-        NetworkManager.shared.request(url: MovieURL.search(keyword: title!)) { (result: Result<SearchMovieResponse, Error>) in
-            switch result {
-            case .success(let search):
-                self.searchMovie = search.results
-                self.movieDetailView.tableView.reloadData()
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
 
     @objc func likeButtonTapped() {
@@ -154,7 +144,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             if let overview = trendingMovie?.overview {
                 cell.label.text = overview
-            } else if let overview = searchMovie?[0].overview {
+            } else if let overview = searchMovie?.overview {
                 cell.label.text = overview
             }
             
@@ -183,7 +173,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.configureWithData(sectionTitle: sectionTitle[section])
             header.moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
             
-            guard let movie = searchMovie?[0] else { return UIView() }
+            guard let movie = searchMovie else { return UIView() }
             header.dateLabel.text = movie.release_date
             header.rateLabel.text = "\(movie.vote_average)"
             header.genreLabel.text = movie.genre_ids.prefix(2).map { Genre(rawValue: $0)!.name }.joined(separator: ", ")
