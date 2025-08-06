@@ -39,5 +39,6 @@ extension MovieDetailView: ViewProtocol {
     
     func register() {
         tableView.register(CastTableViewCell.self, forCellReuseIdentifier: CastTableViewCell.identifier)
+        tableView.register(SynopsisTableViewCell.self, forCellReuseIdentifier: SynopsisTableViewCell.identifier)
     }
 }

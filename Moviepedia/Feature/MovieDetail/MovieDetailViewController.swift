@@ -127,6 +127,16 @@ extension MovieDetailViewController: ViewControllerProtocol {
         
         reloadAction?()
     }
+    
+    @objc func moreButtonTapped(sender: UIButton) {
+        print(#function)
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = movieDetailView.tableView.cellForRow(at: indexPath) as? SynopsisTableViewCell
+        
+        sender.isSelected.toggle()
+        cell?.label.numberOfLines = sender.isSelected ? 0 : 3
+        movieDetailView.tableView.reloadData()
+    }
 }
 
 extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -146,7 +156,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             let cell = tableView.dequeueReusableCell(withIdentifier: SynopsisTableViewCell.identifier) as! SynopsisTableViewCell
             
             cell.label.text = movie?.overview
-
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CastTableViewCell.identifier) as! CastTableViewCell
@@ -170,6 +180,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             
             header.configureStyle(buttonTitle: "More", buttonIsHidden: false)
             header.configureWithData(sectionTitle: sectionTitle[section])
+            header.moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
             
             guard let movie = search?[0] else { return UIView() }
             header.dateLabel.text = movie.release_date

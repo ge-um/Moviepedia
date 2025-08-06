@@ -118,15 +118,21 @@ class BackdropHeaderView: BaseTableViewHeaderView {
         return title
     }()
     
-    let button: UIButton = {
+    let moreButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
         
         config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+        config.baseBackgroundColor = .clear
         
         button.configuration = config
         
+        button.configurationUpdateHandler = { button in
+            var config = button.configuration
+            config?.title = button.isSelected ? "Hide" : "More"
+            button.configuration = config
+        }
         return button
     }()
     
@@ -162,7 +168,7 @@ extension BackdropHeaderView: ViewProtocol {
         contentView.addSubview(infoStackView)
         
         stackView.addArrangedSubview(title)
-        stackView.addArrangedSubview(button)
+        stackView.addArrangedSubview(moreButton)
         
         contentView.addSubview(stackView)
     }
@@ -195,8 +201,8 @@ extension BackdropHeaderView: ViewProtocol {
         let container = AttributeContainer(
             [.font: UIFont.systemFont(ofSize: 15, weight: .heavy)])
         
-        button.configuration?.attributedTitle = AttributedString(buttonTitle, attributes: container)
-        button.isHidden = buttonIsHidden
+        moreButton.configuration?.attributedTitle = AttributedString(buttonTitle, attributes: container)
+        moreButton.isHidden = buttonIsHidden
     }
     
     func configureWithData(sectionTitle: String) {
