@@ -23,6 +23,8 @@ class MainViewController: UIViewController {
         configureNavigation()
         configureTableView()
         bindAction()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name("LikeMovieChanged"), object: nil)
     }
 }
 
@@ -71,6 +73,19 @@ extension MainViewController: ViewControllerProtocol {
     @objc func searchButtonTapped() {
         let vc = SearchResultViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func reload() {
+        print(#function)
+        
+        DispatchQueue.main.async {
+            print(#function)
+
+            var config = self.mainView.profileView.movieBoxStatusButton.configuration
+            let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 16, weight: .bold)])
+            config?.attributedTitle = AttributedString("\(AppSetting.likeMovies.count)개의 무비박스 보관중", attributes: container)
+            self.mainView.profileView.movieBoxStatusButton.configuration = config
+        }
     }
 }
 
