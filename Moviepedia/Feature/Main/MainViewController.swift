@@ -8,20 +8,30 @@
 import UIKit
 
 class MainViewController: UIViewController {
+        
+    let profileView = ProfileView()
     
-    let mainView = MainView()
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        
+        tableView.backgroundColor = .clear
+        
+        return tableView
+    }()
     
     let sectionTitle = ["최근검색어", "오늘의 영화"]
     var trendingMovies: [TrendingMovie] = []
-    
-    override func loadView() {
-        view = mainView
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .B
+        
+        configureSubview()
+        configureConstraint()
         configureNavigation()
         configureTableView()
+        
         bindAction()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: AppNotification.likeMovieChanged.name, object: nil)
@@ -29,6 +39,27 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: ViewControllerProtocol {
+    
+    func configureSubview() {
+        view.addSubview(profileView)
+        view.addSubview(tableView)
+    }
+    
+    func configureConstraint() {
+        profileView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(12)
+            make.height.equalTo(96)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(12)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(profileView.snp.bottom).offset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        tableView.sectionHeaderTopPadding = 0
+    }
     
     func configureNavigation() {
         navigationItem.title = "Moviepedia"
@@ -39,19 +70,19 @@ extension MainViewController: ViewControllerProtocol {
     }
     
     func configureTableView() {
-        mainView.tableView.dataSource = self
-        mainView.tableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
         
-        mainView.tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
-        mainView.tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
-        mainView.tableView.register(TodayMovieTableViewCell.self, forCellReuseIdentifier: TodayMovieTableViewCell.identifier)
+        tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
+        tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
+        tableView.register(TodayMovieTableViewCell.self, forCellReuseIdentifier: TodayMovieTableViewCell.identifier)
 
-        mainView.tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = false
     }
     
     // TODO: - 똑같은 함수를 똑같이 다른 뷰컨에 정의하는게 맞나?
     func bindAction() {
-        mainView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: AppNotification.nicknameChanged.name, object: nil)
     }
@@ -66,7 +97,7 @@ extension MainViewController: ViewControllerProtocol {
     
     @objc func changeNickname(notification: NSNotification) {
         if let nickname = notification.userInfo?["nickname"] as? String {
-            mainView.profileView.nameLabel.text = nickname
+            profileView.nameLabel.text = nickname
         }
     }
     
@@ -79,10 +110,10 @@ extension MainViewController: ViewControllerProtocol {
         print(#function)
         
         DispatchQueue.main.async {
-            var config = self.mainView.profileView.movieBoxStatusButton.configuration
+            var config = self.profileView.movieBoxStatusButton.configuration
             let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 16, weight: .bold)])
             config?.attributedTitle = AttributedString("\(AppSetting.likeMovies.count)개의 무비박스 보관중", attributes: container)
-            self.mainView.profileView.movieBoxStatusButton.configuration = config
+            self.profileView.movieBoxStatusButton.configuration = config
         }
     }
 }
@@ -155,7 +186,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
                 cell.configureWithData(movie: movie)
                 
-                self.mainView.tableView.reloadData()
+                self.tableView.reloadData()
 
             case .failure(let error):
                 print(error)
