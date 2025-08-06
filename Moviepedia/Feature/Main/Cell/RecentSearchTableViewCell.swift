@@ -44,8 +44,11 @@ class RecentSearchTableViewCell: BaseTableViewCell {
         
         configureSubview()
         configureConstraint()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(renewKeyword), name: NSNotification.Name("keywordSearched"), object: nil)
+        bindAction()
+    }
+    
+    func bindAction() {
+        NotificationCenter.default.addObserver(self, selector: #selector(renewKeyword), name: AppNotification.keywordSearched.name, object: nil)
     }
     
     @objc func renewKeyword() {
