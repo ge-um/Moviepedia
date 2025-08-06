@@ -1,11 +1,11 @@
 //
-//  Search.swift
+//  SearchMovieResponse.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/4/25.
 //
 
-struct Search: Decodable {
+struct SearchMovieResponse: Decodable {
     let results: [SearchMovie]
 }
 

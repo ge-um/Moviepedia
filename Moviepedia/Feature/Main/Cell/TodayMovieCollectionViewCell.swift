@@ -130,7 +130,7 @@ extension TodayMovieCollectionViewCell: ViewProtocol {
         }
     }
     
-    func configureWithData(movie: Movie) {
+    func configureWithData(movie: TrendingMovie) {
         if let url = URL(string: MovieURL.image + movie.poster_path) {
             moviePosterView.kf.setImage(with: url,
                                         options:

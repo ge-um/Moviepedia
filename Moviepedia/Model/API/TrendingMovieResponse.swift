@@ -1,15 +1,15 @@
 //
-//  TrendingMovie.swift
+//  TrendingMovieResponse.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/3/25.
 //
 
-struct TrendingMovie: Decodable {
-    let results: [Movie]
+struct TrendingMovieResponse: Decodable {
+    let results: [TrendingMovie]
 }
 
-struct Movie: Decodable {
+struct TrendingMovie: Decodable {
     let id: Int
     let title: String
     let overview: String

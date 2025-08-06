@@ -13,7 +13,7 @@ class MovieDetailViewController: UIViewController {
     
     // TODO: 중복값 제거하기
     let sectionTitle = ["Synopsis", "Cast"]
-    var movie: Movie?
+    var movie: TrendingMovie?
     var cast: [Cast]?
     
     var id: Int?
@@ -87,7 +87,7 @@ extension MovieDetailViewController: ViewControllerProtocol {
     }
     
     func configureData() {
-        NetworkManager.shared.request(url: MovieURL.credit(id: id!)) { (result: Result<Credit, Error>) in
+        NetworkManager.shared.request(url: MovieURL.credit(id: id!)) { (result: Result<CreditResponse, Error>) in
             switch result {
             case .success(let credit):
                 self.cast = credit.cast
@@ -97,7 +97,7 @@ extension MovieDetailViewController: ViewControllerProtocol {
             }
         }
         
-        NetworkManager.shared.request(url: MovieURL.search(keyword: title!)) { (result: Result<Search, Error>) in
+        NetworkManager.shared.request(url: MovieURL.search(keyword: title!)) { (result: Result<SearchMovieResponse, Error>) in
             switch result {
             case .success(let search):
                 self.search = search.results
@@ -185,7 +185,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             header.genreLabel.text = movie.genre_ids.prefix(2).map { Genre(rawValue: $0)!.name }.joined(separator: ", ")
             
             // TODO: - 강제 언래핑 제거하기
-            NetworkManager.shared.request(url: MovieURL.backdrop(id: id!)) { (result: Result<MovieImage, Error>) in
+            NetworkManager.shared.request(url: MovieURL.backdrop(id: id!)) { (result: Result<BackdropResponse, Error>) in
                                 
                 switch result {
                     

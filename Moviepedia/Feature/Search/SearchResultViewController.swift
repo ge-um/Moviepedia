@@ -44,7 +44,7 @@ extension SearchResultViewController: ViewControllerProtocol {
     }
     
     func searchData(keyword: String) {
-        NetworkManager.shared.request(url: MovieURL.search(keyword: keyword)) { (result: Result<Search, Error>) in
+        NetworkManager.shared.request(url: MovieURL.search(keyword: keyword)) { (result: Result<SearchMovieResponse, Error>) in
             switch result {
                 
             case .success(let search):

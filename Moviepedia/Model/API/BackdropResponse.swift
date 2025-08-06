@@ -1,11 +1,11 @@
 //
-//  MovieImage.swift
+//  BackdropResponse.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/4/25.
 //
 
-struct MovieImage: Decodable {
+struct BackdropResponse: Decodable {
     let id: Int
     let backdrops: [Backdrop]
 }

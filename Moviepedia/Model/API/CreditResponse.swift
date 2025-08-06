@@ -1,11 +1,11 @@
 //
-//  Credit.swift
+//  CreditResponse.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 8/4/25.
 //
 
-struct Credit: Decodable {
+struct CreditResponse: Decodable {
     let id: Int
     let cast: [Cast]
 }

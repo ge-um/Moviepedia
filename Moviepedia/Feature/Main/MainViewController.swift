@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     let mainView = MainView()
     
     let sectionTitle = ["최근검색어", "오늘의 영화"]
-    var trendingMovies: [Movie] = []
+    var trendingMovies: [TrendingMovie] = []
     
     override func loadView() {
         view = mainView
@@ -142,7 +142,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
                 
-        NetworkManager.shared.request(url: MovieURL.trending) { (result: Result<TrendingMovie, Error>) in
+        NetworkManager.shared.request(url: MovieURL.trending) { (result: Result<TrendingMovieResponse, Error>) in
             
             switch result {
             case .success(let todayMovie):
