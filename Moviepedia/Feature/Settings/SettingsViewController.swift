@@ -9,7 +9,18 @@ import UIKit
 
 final class SettingsViewController: UIViewController {
     
-    let profileView = ProfileView()
+    lazy var profileView: ProfileView = {
+        let view = ProfileView()
+        
+        view.onEditButtonTapped = {
+            let modal = UINavigationController(rootViewController: EditNicknameViewController())
+            modal.modalPresentationStyle = .pageSheet
+            modal.sheetPresentationController?.prefersGrabberVisible = true
+            self.present(modal, animated: true)
+        }
+        
+        return view
+    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -34,12 +45,12 @@ final class SettingsViewController: UIViewController {
         configureSubview()
         configureConstraint()
         configureStyle()
-        configureNavigation()
         bindAction()
     }
 }
 
 extension SettingsViewController: ViewControllerProtocol {
+    
     func configureSubview() {
         view.addSubview(profileView)
         view.addSubview(tableView)
@@ -61,25 +72,13 @@ extension SettingsViewController: ViewControllerProtocol {
     
     func configureStyle() {
         view.backgroundColor = .B
-    }
-    
-    func configureNavigation() {
         navigationItem.title = "설정"
     }
 
     func bindAction() {
-        profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: AppNotification.nicknameChanged.name, object: nil)
     }
-    
-    @objc func editButtonTapped() {
-        let modal = UINavigationController(rootViewController: EditNicknameViewController())
-        modal.modalPresentationStyle = .pageSheet
-        modal.sheetPresentationController?.prefersGrabberVisible = true
-        present(modal, animated: true)
-    }
-    
+
     @objc func changeNickname(notification: NSNotification) {
         if let nickname = notification.userInfo?["nickname"] as? String {
             profileView.nameLabel.text = nickname
