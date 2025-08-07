@@ -52,7 +52,7 @@ class ProfileView: BaseView {
         return stackView
     }()
     
-    let movieBoxStatusButton: UIButton = {
+    lazy var movieBoxStatusButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.filled()
@@ -64,6 +64,8 @@ class ProfileView: BaseView {
         config.baseForegroundColor = .W
         
         button.configuration = config
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: AppNotification.likeMovieChanged.name, object: nil)
         
         return button
     }()
@@ -103,5 +105,16 @@ extension ProfileView: ViewProtocol {
     func configureStyle() {
         backgroundColor = .Gray3
         layer.cornerRadius = 10
+    }
+    
+    @objc func reload() {
+        print(#function)
+        
+        DispatchQueue.main.async {
+            var config = self.movieBoxStatusButton.configuration
+            let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 16, weight: .bold)])
+            config?.attributedTitle = AttributedString("\(AppSetting.likeMovies.count)개의 무비박스 보관중", attributes: container)
+            self.movieBoxStatusButton.configuration = config
+        }
     }
 }

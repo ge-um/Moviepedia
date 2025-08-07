@@ -56,7 +56,7 @@ class MovieDetailViewController: UIViewController {
         tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
         
         tableView.register(BackdropHeaderView.self, forHeaderFooterViewReuseIdentifier:  BackdropHeaderView.identifier)
-        
+                
         return tableView
     }()
     
@@ -173,6 +173,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
             guard let cast = cast?[indexPath.row] else { return UITableViewCell() }
             
             cell.configureData(cast: cast)
+            
             return cell
         }
     }
