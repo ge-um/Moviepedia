@@ -10,17 +10,49 @@ import UIKit
 // TODO: 검색 버그 있음.
 class SearchResultViewController: UIViewController {
     
-    let searchResultView = SearchResultView()
+    let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        
+        searchBar.searchBarStyle = .minimal
+        searchBar.barStyle = .black
+        searchBar.placeholder = "영화를 검색해보세요."
+        
+        searchBar.becomeFirstResponder()
+                
+        return searchBar
+    }()
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        
+        tableView.backgroundColor = .clear
+        
+        tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
+        
+        return tableView
+    }()
+    
+    lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "원하는 검색결과를 찾지 못했습니다."
+        label.textColor = .Gray2
+        label.font = .systemFont(ofSize: 13, weight: .bold)
+        label.textAlignment = .center
+        label.isHidden = true
+        
+        return label
+    }()
     
     var movies: [SearchMovie] = []
-    
-    override func loadView() {
-        view = searchResultView
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .B
+        
+        configureSubview()
+        configureConstraint()
         configureNavigation()
         bindAction()
     }
@@ -33,9 +65,9 @@ extension SearchResultViewController: ViewControllerProtocol {
     }
     
     func bindAction() {
-        searchResultView.searchBar.delegate = self
-        searchResultView.tableView.delegate = self
-        searchResultView.tableView.dataSource = self
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     func searchData(keyword: String) {
@@ -54,10 +86,34 @@ extension SearchResultViewController: ViewControllerProtocol {
     
     func reloadView() {
         if movies.isEmpty {
-            searchResultView.emptyLabel.isHidden = false
+            emptyLabel.isHidden = false
         } else {
-            searchResultView.emptyLabel.isHidden = true
-            searchResultView.tableView.reloadData()
+            emptyLabel.isHidden = true
+            tableView.reloadData()
+        }
+    }
+    
+    func configureSubview() {
+        view.addSubview(searchBar)
+        view.addSubview(emptyLabel)
+        view.addSubview(tableView)
+    }
+    
+    func configureConstraint() {
+        searchBar.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.top.equalTo(searchBar.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        emptyLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.top.equalTo(searchBar.snp.bottom).offset(160)
         }
     }
 }
