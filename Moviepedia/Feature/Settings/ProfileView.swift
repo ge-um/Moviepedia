@@ -19,7 +19,7 @@ class ProfileView: BaseView {
         return label
     }()
     
-    let editButton: UIButton = {
+    lazy var editButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.plain()
@@ -38,6 +38,8 @@ class ProfileView: BaseView {
         config.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         button.configuration = config
+         
+        button.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         return button
     }()
@@ -69,6 +71,8 @@ class ProfileView: BaseView {
         
         return button
     }()
+    
+    var onEditButtonTapped: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -117,5 +121,10 @@ extension ProfileView: ViewProtocol {
             config?.attributedTitle = AttributedString("\(AppSetting.likeMovies.count)개의 무비박스 보관중", attributes: container)
             self.movieBoxStatusButton.configuration = config
         }
+    }
+    
+    @objc func editButtonTapped() {
+        print(#function)
+        onEditButtonTapped?()
     }
 }

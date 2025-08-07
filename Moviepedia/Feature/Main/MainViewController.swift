@@ -9,7 +9,19 @@ import UIKit
 
 class MainViewController: UIViewController {
         
-    let profileView = ProfileView()
+    lazy var profileView: ProfileView = {
+        let view = ProfileView()
+        
+        view.onEditButtonTapped = {
+            print(#function)
+            let modal = UINavigationController(rootViewController: EditNicknameViewController())
+            modal.modalPresentationStyle = .pageSheet
+            modal.sheetPresentationController?.prefersGrabberVisible = true
+            self.present(modal, animated: true)
+        }
+        
+        return view
+    }()
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -78,18 +90,18 @@ extension MainViewController: ViewControllerProtocol {
     
     // TODO: - 똑같은 함수를 똑같이 다른 뷰컨에 정의하는게 맞나?
     func bindAction() {
-        profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+//        profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: AppNotification.nicknameChanged.name, object: nil)
     }
 
-    @objc func editButtonTapped() {
-        print(#function)
-        let modal = UINavigationController(rootViewController: EditNicknameViewController())
-        modal.modalPresentationStyle = .pageSheet
-        modal.sheetPresentationController?.prefersGrabberVisible = true
-        present(modal, animated: true)
-    }
+//    @objc func editButtonTapped() {
+//        print(#function)
+//        let modal = UINavigationController(rootViewController: EditNicknameViewController())
+//        modal.modalPresentationStyle = .pageSheet
+//        modal.sheetPresentationController?.prefersGrabberVisible = true
+//        present(modal, animated: true)
+//    }
     
     @objc func changeNickname(notification: NSNotification) {
         if let nickname = notification.userInfo?["nickname"] as? String {
