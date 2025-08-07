@@ -9,36 +9,66 @@ import UIKit
 
 final class SettingsViewController: UIViewController {
     
-    private let settingsView = SettingsView()
+    let profileView = ProfileView()
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = UIColor.Gray2
+        tableView.separatorInset = .init(top: 0, left: 12, bottom: 0, right: 12)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
+        
+        return tableView
+    }()
+    
     private let content = ["자주 묻는 질문", "1:1 문의", "알림 설정", "탈퇴하기"]
-    
-    override func loadView() {
-        view = settingsView
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        configureSubview()
+        configureConstraint()
+        configureStyle()
         configureNavigation()
-        configureTableView()
         bindAction()
     }
 }
 
 extension SettingsViewController: ViewControllerProtocol {
+    func configureSubview() {
+        view.addSubview(profileView)
+        view.addSubview(tableView)
+    }
+    
+    func configureConstraint() {
+        profileView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(12)
+            make.height.equalTo(96)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(12)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(profileView.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    func configureStyle() {
+        view.backgroundColor = .B
+    }
     
     func configureNavigation() {
         navigationItem.title = "설정"
     }
-    
-    func configureTableView() {
-        settingsView.tableView.delegate = self
-        settingsView.tableView.dataSource = self
-        settingsView.tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
-    }
-    
+
     func bindAction() {
-        settingsView.profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        profileView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeNickname), name: AppNotification.nicknameChanged.name, object: nil)
     }
@@ -52,7 +82,7 @@ extension SettingsViewController: ViewControllerProtocol {
     
     @objc func changeNickname(notification: NSNotification) {
         if let nickname = notification.userInfo?["nickname"] as? String {
-            settingsView.profileView.nameLabel.text = nickname
+            profileView.nameLabel.text = nickname
         }
     }
 }
