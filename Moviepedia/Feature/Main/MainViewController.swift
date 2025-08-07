@@ -22,10 +22,19 @@ class MainViewController: UIViewController {
         return view
     }()
     
-    let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         
         tableView.backgroundColor = .clear
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
+        tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
+        tableView.register(TodayMovieTableViewCell.self, forCellReuseIdentifier: TodayMovieTableViewCell.identifier)
+
+        tableView.isScrollEnabled = false
         
         return tableView
     }()
@@ -37,8 +46,7 @@ class MainViewController: UIViewController {
                 
         configureSubview()
         configureConstraint()
-        configureNavigation()
-        configureTableView()
+        configureStyle()
         bindAction()
     }
 }
@@ -74,17 +82,6 @@ extension MainViewController: ViewControllerProtocol {
         let rightButton = UIBarButtonItem(title: nil, image: UIImage(systemName: "magnifyingglass"), target: self, action: #selector(searchButtonTapped))
         
         navigationItem.rightBarButtonItem = rightButton
-    }
-
-    func configureTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        tableView.register(RecentSearchTableViewCell.self, forCellReuseIdentifier: RecentSearchTableViewCell.identifier)
-        tableView.register(MainTableViewHeaderView.self, forHeaderFooterViewReuseIdentifier: MainTableViewHeaderView.identifier)
-        tableView.register(TodayMovieTableViewCell.self, forCellReuseIdentifier: TodayMovieTableViewCell.identifier)
-
-        tableView.isScrollEnabled = false
     }
     
     func bindAction() {
