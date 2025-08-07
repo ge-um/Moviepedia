@@ -20,7 +20,6 @@ class MainViewController: UIViewController {
     }()
     
     let sectionTitle = ["최근검색어", "오늘의 영화"]
-    var trendingMovies: [TrendingMovie] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +30,6 @@ class MainViewController: UIViewController {
         configureConstraint()
         configureNavigation()
         configureTableView()
-        
         bindAction()
     }
 }
@@ -124,9 +122,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: TodayMovieTableViewCell.identifier) as! TodayMovieTableViewCell
             
-            cell.collectionView.register(TodayMovieCollectionViewCell.self, forCellWithReuseIdentifier: TodayMovieCollectionViewCell.identifier)
-            cell.collectionView.dataSource = self
-            cell.collectionView.delegate = self
+            cell.didSelectMovie = { movie in
+                let vc = MovieDetailViewController()
+                
+                vc.id = movie.id
+                vc.trendingMovie = movie
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             
             return cell
         }
@@ -146,51 +148,5 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 44 : 480
-    }
-}
-
-// TODO: - 이게맞나.ㅎ 분리 어떻게 안될까
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    // TODO: cell에서 업데이트 안하도록 분리
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayMovieCollectionViewCell.identifier, for: indexPath) as! TodayMovieCollectionViewCell
-                
-        NetworkManager.shared.request(url: MovieURL.trending) { (result: Result<TrendingMovieResponse, Error>) in
-            
-            switch result {
-            case .success(let todayMovie):
-                
-                self.trendingMovies = todayMovie.results
-                
-                let movie = todayMovie.results[indexPath.row]
-                
-                cell.id = movie.id
-
-                cell.configureWithData(movie: movie)
-                
-                self.tableView.reloadData()
-
-            case .failure(let error):
-                print(error)
-                break
-            }
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movie = trendingMovies[indexPath.row]
-        
-        let vc = MovieDetailViewController()
-        
-        vc.id = movie.id
-        vc.trendingMovie = movie
-        
-        navigationController?.pushViewController(vc, animated: true)
     }
 }

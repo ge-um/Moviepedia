@@ -110,6 +110,7 @@ extension ProfileView: ViewProtocol {
     @objc func reload() {
         print(#function)
         
+        // TODO: - 구조 고쳐서 임시조치 없애기
         DispatchQueue.main.async {
             var config = self.movieBoxStatusButton.configuration
             let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 16, weight: .bold)])
