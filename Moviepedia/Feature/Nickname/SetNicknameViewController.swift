@@ -9,16 +9,63 @@ import Toast
 import UIKit
 
 class SetNicknameViewController: UIViewController {
-    private let setNicknameView = SetNicknameView()
-    
-    private var nickname = User(name: "")
         
-    override func loadView() {
-        view = setNicknameView
-    }
+    let nicknameTextField: UITextField = {
+        let textField = UITextField()
+        textField.textColor = .W
+        textField.font = .systemFont(ofSize: 13)
+        textField.isEnabled = false
+        
+        return textField
+    }()
+    
+    let editButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.contentInsets = .init(top: 8, leading: 20, bottom: 8, trailing: 20)
+        let container = AttributeContainer([.font: UIFont.systemFont(ofSize: 14, weight: .bold), .foregroundColor: UIColor.W])
+        
+        config.attributedTitle = AttributedString("편집", attributes: container)
+        
+        config.cornerStyle = .capsule
+        config.background.strokeColor = .W
+        config.background.strokeWidth = 1
+        
+        button.configuration = config
+        
+        return button
+    }()
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 0
+        
+        return stackView
+    }()
+    
+    private let line: UIView = {
+        let view = UIView()
+        view.backgroundColor = .W
+        
+        return view
+    }()
+    
+    let completeButton: UIButton = {
+        let button = UIButton()
+        button.configuration = UIButton.Configuration.bordered(title: "완료")
+
+        return button
+    }()
+
+    private var nickname = User(name: "")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSubview()
+        configureConstraint()
         configureNavigation()
         bindAction()
     }
@@ -26,14 +73,46 @@ class SetNicknameViewController: UIViewController {
 
 extension SetNicknameViewController: ViewControllerProtocol {
     
+    func configureSubview() {
+        stackView.addArrangedSubview(nicknameTextField)
+        stackView.addArrangedSubview(editButton)
+        
+        view.addSubview(stackView)
+        view.addSubview(line)
+        view.addSubview(completeButton)
+    }
+    
+    func configureConstraint() {
+        nicknameTextField.snp.contentHuggingHorizontalPriority = 249
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.height.equalTo(40)
+        }
+        
+        line.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom)
+            make.leading.equalTo(stackView)
+            make.trailing.equalTo(stackView).inset(42)
+            make.height.equalTo(1)
+        }
+        
+        completeButton.snp.makeConstraints { make in
+            make.top.equalTo(line.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(8)
+            make.height.equalTo(40)
+        }
+    }
+    
      func configureNavigation() {
         navigationItem.title = "닉네임 설정"
     }
 
     func bindAction() {
-        setNicknameView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         
-        setNicknameView.completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
+        completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         
     }
     
@@ -43,12 +122,12 @@ extension SetNicknameViewController: ViewControllerProtocol {
         
         vc.sendNickname = { nickname in
             self.nickname = nickname
-            self.setNicknameView.nicknameTextField.text = nickname.name
+            self.nicknameTextField.text = nickname.name
         }
     }
     
     @objc func completeButtonTapped() {
-        let name = setNicknameView.nicknameTextField.text!
+        let name = nicknameTextField.text!
 
         if name.isEmpty {
             view.makeToast("편집 버튼을 눌러 닉네임을 입력하세요.", position: .center)

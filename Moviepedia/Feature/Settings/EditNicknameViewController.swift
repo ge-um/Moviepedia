@@ -8,9 +8,7 @@
 import UIKit
 
 final class EditNicknameViewController: UIViewController {
-    
-    private let editNicknameView = EditNicknameView()
-    
+        
     let nicknameTextField: UITextField = {
         let textField = UITextField()
         
@@ -117,7 +115,7 @@ extension EditNicknameViewController: ViewControllerProtocol {
     }
     
     func bindAction() {
-        editNicknameView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
     @objc private func dismissButtonTapped() {
@@ -125,7 +123,7 @@ extension EditNicknameViewController: ViewControllerProtocol {
     }
 
     @objc private func saveButtonTapped() {
-        let newNickname = editNicknameView.nicknameTextField.text!
+        let newNickname = nicknameTextField.text!
         let user = User(name: newNickname)
         
         switch user.isValid {
@@ -141,7 +139,7 @@ extension EditNicknameViewController: ViewControllerProtocol {
         let vc = NicknameDetailViewController()
         vc.sendNickname = { nickname in
             self.nickname = nickname
-            self.editNicknameView.nicknameTextField.text = nickname.name
+            self.nicknameTextField.text = nickname.name
         }
         navigationController?.pushViewController(vc, animated: true)
     }
