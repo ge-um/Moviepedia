@@ -58,7 +58,7 @@ class SearchResultViewController: UIViewController {
     }
 }
 
-extension SearchResultViewController: ViewControllerProtocol {
+extension SearchResultViewController {
     
     func configureNavigation() {
         navigationItem.title = "영화 검색"

@@ -56,7 +56,7 @@ final class OnboardingViewController: UIViewController {
     }
 }
 
-extension OnboardingViewController: ViewControllerProtocol {
+extension OnboardingViewController {
     
     func configureSubview() {
         view.addSubview(imageView)

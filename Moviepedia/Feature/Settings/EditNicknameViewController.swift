@@ -68,7 +68,7 @@ final class EditNicknameViewController: UIViewController {
     }
 }
 
-extension EditNicknameViewController: ViewControllerProtocol {
+extension EditNicknameViewController {
     
     func configureSubview() {
         stackView.addArrangedSubview(nicknameTextField)

@@ -50,7 +50,7 @@ final class NicknameDetailViewController: UIViewController {
     }
 }
 
-extension NicknameDetailViewController: ViewControllerProtocol {
+extension NicknameDetailViewController {
     
     func configureSubview() {
         view.addSubview(nicknameTextField)

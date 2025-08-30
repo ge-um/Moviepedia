@@ -51,7 +51,7 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: ViewControllerProtocol {
+extension MainViewController {
     
     func configureSubview() {
         view.addSubview(profileView)

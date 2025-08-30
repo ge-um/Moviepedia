@@ -49,7 +49,7 @@ final class SettingsViewController: UIViewController {
     }
 }
 
-extension SettingsViewController: ViewControllerProtocol {
+extension SettingsViewController {
     
     func configureSubview() {
         view.addSubview(profileView)

@@ -9,7 +9,6 @@ import Toast
 import UIKit
 
 class SetNicknameViewController: UIViewController {
-        
     let nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.textColor = .W
@@ -71,7 +70,7 @@ class SetNicknameViewController: UIViewController {
     }
 }
 
-extension SetNicknameViewController: ViewControllerProtocol {
+extension SetNicknameViewController {
     
     func configureSubview() {
         stackView.addArrangedSubview(nicknameTextField)

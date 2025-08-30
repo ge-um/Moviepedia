@@ -73,7 +73,7 @@ class MovieDetailViewController: UIViewController {
     }
 }
 
-extension MovieDetailViewController: ViewControllerProtocol {
+extension MovieDetailViewController {
     
     func configureSubview() {
         view.addSubview(tableView)

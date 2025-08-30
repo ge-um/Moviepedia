@@ -15,7 +15,7 @@ class MainTabBarController: UITabBarController {
     }
 }
 
-extension MainTabBarController: ViewControllerProtocol {
+extension MainTabBarController {
     
     func configureTabBar() {
         let vc1 = UINavigationController(rootViewController: MainViewController())
