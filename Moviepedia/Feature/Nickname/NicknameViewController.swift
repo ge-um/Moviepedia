@@ -1,5 +1,5 @@
 //
-//  SetNicknameViewController.swift
+//  NicknameViewController.swift
 //  Moviepedia
 //
 //  Created by 금가경 on 7/31/25.
@@ -8,7 +8,7 @@
 import Toast
 import UIKit
 
-class SetNicknameViewController: UIViewController {
+class NicknameViewController: UIViewController {
     let nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.textColor = .W
@@ -60,7 +60,7 @@ class SetNicknameViewController: UIViewController {
     }
 }
 
-extension SetNicknameViewController {
+extension NicknameViewController {
     private func configureNavigation() {
         navigationItem.title = "닉네임 설정"
     }
