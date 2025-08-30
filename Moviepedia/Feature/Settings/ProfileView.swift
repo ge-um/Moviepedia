@@ -83,7 +83,7 @@ class ProfileView: BaseView {
     }
 }
 
-extension ProfileView: ViewProtocol {
+extension ProfileView {
     
     func configureSubview() {
         stackView.addArrangedSubview(nameLabel)

@@ -152,7 +152,7 @@ class BackdropHeaderView: BaseTableViewHeaderView {
     }
 }
 
-extension BackdropHeaderView: ViewProtocol {
+extension BackdropHeaderView {
     
     func configureSubview() {
         addSubview(collectionView)

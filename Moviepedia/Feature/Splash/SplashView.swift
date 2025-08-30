@@ -43,7 +43,7 @@ final class SplashView: BaseView {
     }
 }
 
-extension SplashView: ViewProtocol {
+extension SplashView {
     
     func configureSubview() {
         addSubview(imageView)

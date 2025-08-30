@@ -99,8 +99,7 @@ class TodayMovieCollectionViewCell: BaseCollectionViewCell {
     }
 }
 
-extension TodayMovieCollectionViewCell: ViewProtocol {
-    // TODO: - 왜 contentView에 넣더라?
+extension TodayMovieCollectionViewCell {
     func configureSubview() {
         contentView.addSubview(moviePosterView)
         

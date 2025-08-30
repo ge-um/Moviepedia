@@ -19,7 +19,7 @@ class BackdropCollectionViewCell: BaseCollectionViewCell {
     }
 }
 
-extension BackdropCollectionViewCell: ViewProtocol {
+extension BackdropCollectionViewCell {
     
     func configureSubview() {
         addSubview(imageView)

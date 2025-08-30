@@ -53,7 +53,7 @@ class MainTableViewHeaderView: BaseTableViewHeaderView {
     }
 }
 
-extension MainTableViewHeaderView: ViewProtocol {
+extension MainTableViewHeaderView {
     
     func configureSubview() {
         stackView.addArrangedSubview(title)

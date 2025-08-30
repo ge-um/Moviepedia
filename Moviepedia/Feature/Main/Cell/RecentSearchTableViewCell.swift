@@ -56,7 +56,7 @@ class RecentSearchTableViewCell: BaseTableViewCell {
     }
 }
 
-extension RecentSearchTableViewCell: ViewProtocol {
+extension RecentSearchTableViewCell {
     
     func configureSubview() {
         contentView.addSubview(collectionView)

@@ -99,7 +99,7 @@ class SearchResultTableViewCell: BaseTableViewCell {
     }
 }
 
-extension SearchResultTableViewCell: ViewProtocol {
+extension SearchResultTableViewCell {
     
     func configureSubview() {
         addSubview(posterImageView)

@@ -49,7 +49,7 @@ class CastTableViewCell: BaseTableViewCell {
     
 }
 
-extension CastTableViewCell: ViewProtocol {
+extension CastTableViewCell {
     func configureSubview() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(actorNameLabel)

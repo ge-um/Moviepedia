@@ -61,7 +61,7 @@ class KeywordCollectionViewCell: BaseCollectionViewCell {
     }
 }
 
-extension KeywordCollectionViewCell: ViewProtocol {
+extension KeywordCollectionViewCell {
     
     func configureSubview() {
         containerView.addSubview(label)

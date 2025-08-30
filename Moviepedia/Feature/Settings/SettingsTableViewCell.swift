@@ -23,7 +23,7 @@ class SettingsTableViewCell: BaseTableViewCell {
     }
 }
 
-extension SettingsTableViewCell: ViewProtocol {
+extension SettingsTableViewCell {
     
     func configureSubview() {
         addSubview(label)

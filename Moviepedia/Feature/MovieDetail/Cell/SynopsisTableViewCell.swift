@@ -27,7 +27,7 @@ class SynopsisTableViewCell: BaseTableViewCell {
     }
 }
 
-extension SynopsisTableViewCell: ViewProtocol {
+extension SynopsisTableViewCell {
     
     func configureSubview() {
         contentView.addSubview(label)

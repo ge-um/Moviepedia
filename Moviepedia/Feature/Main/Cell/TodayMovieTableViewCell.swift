@@ -39,7 +39,7 @@ class TodayMovieTableViewCell: BaseTableViewCell {
     }
 }
 
-extension TodayMovieTableViewCell: ViewProtocol {
+extension TodayMovieTableViewCell {
     
     func configureSubview() {
         contentView.addSubview(collectionView)
